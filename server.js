@@ -51,6 +51,11 @@ const server = http.createServer((req, res) => {
     pathname = '/index.html';
   }
   
+  // Handle blog directory
+  if (pathname === '/blog/' || pathname === '/blog') {
+    pathname = '/blog.html';
+  }
+  
   // If pathname doesn't have an extension and doesn't end with /, try .html
   const ext = path.extname(pathname);
   if (!ext && !pathname.endsWith('/')) {
