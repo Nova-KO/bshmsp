@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form Test - BSH Technologies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .message {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #e7f3ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Contact Form Test</h1>
+        
+        <div class="message info" style="display: block;">
+            <strong>Testing Instructions:</strong><br>
+            1. Fill out the form below<br>
+            2. Submit and check for success message<br>
+            3. Check your email inbox (and spam folder)<br>
+            4. Verify you receive the test submission
+        </div>
+
+        <form id="testForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="organization">Organization</label>
+                <input type="text" id="organization" name="organization" placeholder="Enter organization name (optional)">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required placeholder="Enter your test message here...">This is a test submission from the BSH Technologies contact form. The serverless function is working correctly!</textarea>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">Send Test Message</button>
+        </form>
+
+        <div class="message success" id="successMsg">
+            <strong>✅ Success!</strong> Test email sent successfully. Check your inbox!
+        </div>
+
+        <div class="message error" id="errorMsg">
+            <strong>❌ Error:</strong> <span id="errorText">Something went wrong. Please check the console for details.</span>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 5px; font-size: 14px;">
+            <strong>Troubleshooting:</strong><br>
+            • If form doesn't submit: Check browser console for errors<br>
+            • If no email received: Check spam folder and Resend dashboard<br>
+            • If function fails: Check Vercel function logs and environment variables<br>
+            • Need help? See <a href="SERVERLESS_SETUP.md">SERVERLESS_SETUP.md</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = document.getElementById('submitBtn');
+            const successMsg = document.getElementById('successMsg');
+            const errorMsg = document.getElementById('errorMsg');
+            const errorText = document.getElementById('errorText');
+            
+            // Hide messages
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending Test...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = {
+                name: form.querySelector('#name').value.trim(),
+                email: form.querySelector('#email').value.trim(),
+                organization: form.querySelector('#organization').value.trim() || '',
+                message: form.querySelector('#message').value.trim()
+            };
+            
+            console.log('Testing contact form with data:', formData);
+            
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                const result = await response.json();
+                console.log('Response data:', result);
+                
+                if (response.ok && result.success) {
+                    // Success
+                    successMsg.style.display = 'block';
+                    form.reset();
+                    form.querySelector('#message').value = 'This is a test submission from the BSH Technologies contact form. The serverless function is working correctly!';
+                    
+                    // Scroll to success message
+                    successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                } else {
+                    // Error with server response
+                    errorText.textContent = result.message || 'Unknown error occurred';
+                    errorMsg.style.display = 'block';
+                    errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                
+            } catch (error) {
+                console.error('Network error:', error);
+                errorText.textContent = 'Network error: ' + error.message;
+                errorMsg.style.display = 'block';
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+            } finally {
+                // Reset button
+                submitBtn.textContent = 'Send Test Message';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -51,9 +51,57 @@ const server = http.createServer((req, res) => {
     pathname = '/index.html';
   }
   
-  // Handle blog directory
+  // Handle directory paths - redirect to .html files
   if (pathname === '/blog/' || pathname === '/blog') {
-    pathname = '/blog.html';
+    console.log(`Blog redirect: redirecting to /blog.html`);
+    res.writeHead(301, { 'Location': '/blog.html' });
+    res.end();
+    return;
+  }
+  
+  if (pathname === '/about/' || pathname === '/about') {
+    console.log(`About redirect: redirecting to /about.html`);
+    res.writeHead(301, { 'Location': '/about.html' });
+    res.end();
+    return;
+  }
+  
+  if (pathname === '/pricing/' || pathname === '/pricing') {
+    console.log(`Pricing redirect: redirecting to /pricing.html`);
+    res.writeHead(301, { 'Location': '/pricing.html' });
+    res.end();
+    return;
+  }
+  
+  if (pathname === '/wall-of-love/' || pathname === '/wall-of-love') {
+    console.log(`Wall of Love redirect: redirecting to /wall-of-love.html`);
+    res.writeHead(301, { 'Location': '/wall-of-love.html' });
+    res.end();
+    return;
+  }
+  
+  if (pathname === '/contact/' || pathname === '/contact') {
+    console.log(`Contact redirect: redirecting to /contact.html`);
+    res.writeHead(301, { 'Location': '/contact.html' });
+    res.end();
+    return;
+  }
+  
+  // Handle services paths
+  if (pathname.startsWith('/services/')) {
+    const serviceName = pathname.replace('/services/', '');
+    if (serviceName && !serviceName.includes('.')) {
+      const htmlPath = `/services/${serviceName}.html`;
+      const fullHtmlPath = path.join(__dirname, htmlPath);
+      
+      console.log(`Checking for service: ${fullHtmlPath}`);
+      
+      if (fs.existsSync(fullHtmlPath)) {
+        console.log(`Serving service: ${htmlPath}`);
+        serveFile(res, fullHtmlPath);
+        return;
+      }
+    }
   }
   
   // If pathname doesn't have an extension and doesn't end with /, try .html

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+     width="261.2384482196502" 
+     height="67.96874693936343" 
+     viewBox="0 0 261.2384482196502 67.96874693936343" 
+     preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <clipPath id="logo-clip">
+      <path d="M 0 0 L 261.2384482196502 0 L 261.2384482196502 67.96874693936343 L 0 67.96874693936343 Z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#logo-clip)">
+    <!-- BSH Technologies Logo Content -->
+    <rect width="100%" height="100%" fill="#1f4e79"/>
+    <text x="130.6192241098251" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">
+      BSH Technologies
+    </text>
+  </g>
+</svg>
