@@ -125,7 +125,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'BSH Technologies <contact@resend.dev>', // Use resend.dev for testing, change to your domain later
-        to: ['info@bshtechnologies.com'], // Change this to your actual email
+        to: ['novakopro@gmail.com'], // Updated to your Gmail address
         subject: `New Contact: ${sanitizedName} - ${sanitizedOrganization || 'BSH Technologies'}`,
         html: emailHtml,
         // Also send plain text version
