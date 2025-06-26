@@ -1,0 +1,150 @@
+<!-- BSH Technologies - Analytics & Tracking Setup -->
+<!-- Add this code to the <head> section of ALL pages -->
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', {
+    // Enhanced measurement for better SEO tracking
+    enhanced_measurements: {
+      scrolls: true,
+      outbound_clicks: true,
+      site_search: true,
+      video_engagement: true,
+      file_downloads: true
+    },
+    // Custom dimensions for SEO tracking
+    custom_map: {
+      'custom_parameter_1': 'keyword_source',
+      'custom_parameter_2': 'landing_page'
+    }
+  });
+
+  // Track specific SEO events
+  function trackSEOEvent(action, keyword, page) {
+    gtag('event', action, {
+      'event_category': 'SEO',
+      'event_label': keyword,
+      'custom_parameter_1': keyword,
+      'custom_parameter_2': page
+    });
+  }
+
+  // Track when users search for BSH Technologies keywords
+  function trackKeywordRanking(keyword, position, page) {
+    gtag('event', 'keyword_ranking', {
+      'event_category': 'SEO_Rankings',
+      'event_label': keyword,
+      'value': position,
+      'custom_parameter_1': keyword,
+      'custom_parameter_2': page
+    });
+  }
+</script>
+
+<!-- Microsoft Clarity (User behavior tracking) -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "XXXXXXXXX");
+</script>
+
+<!-- Facebook Pixel (Optional - for remarketing) -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'XXXXXXXXXXXXXXXXX');
+  fbq('track', 'PageView');
+</script>
+
+<!-- LinkedIn Insight Tag -->
+<script type="text/javascript">
+_linkedin_partner_id = "XXXXXXX";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script><script type="text/javascript">
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
+</script>
+
+<!-- SEO-specific event tracking -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Track page load for SEO
+  trackSEOEvent('page_load', document.title, window.location.pathname);
+  
+  // Track contact form submissions
+  const contactForms = document.querySelectorAll('form');
+  contactForms.forEach(form => {
+    form.addEventListener('submit', function() {
+      trackSEOEvent('contact_form_submit', 'BSH Technologies Contact', window.location.pathname);
+    });
+  });
+  
+  // Track service page visits
+  if (window.location.pathname.includes('/services/')) {
+    const serviceName = window.location.pathname.split('/').pop().replace('.html', '');
+    trackSEOEvent('service_page_visit', serviceName, window.location.pathname);
+  }
+  
+  // Track pricing page engagement
+  if (window.location.pathname.includes('pricing')) {
+    trackSEOEvent('pricing_page_visit', 'BSH Technologies Pricing', window.location.pathname);
+  }
+});
+</script>
+
+<!-- Schema.org structured data for analytics -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "BSH Technologies - Analytics Setup",
+  "description": "Complete analytics and tracking setup for BSH Technologies SEO monitoring",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "BSH Technologies",
+    "url": "https://bshmsp-lovat.vercel.app"
+  }
+}
+</script>
+
+<!-- 
+SETUP INSTRUCTIONS:
+1. Replace 'GTM-XXXXXX' with your Google Tag Manager container ID
+2. Replace 'G-XXXXXXXXXX' with your Google Analytics 4 measurement ID  
+3. Replace 'XXXXXXXXX' with your Microsoft Clarity project ID
+4. Replace Facebook Pixel ID if using Facebook ads
+5. Replace LinkedIn Insight Tag ID if using LinkedIn ads
+6. Add this code to the <head> section of all pages
+7. Add Google Tag Manager noscript code to <body> section
+
+GOOGLE TAG MANAGER NOSCRIPT (Add to <body>):
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+--> 

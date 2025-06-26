@@ -1,0 +1,180 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://bshmsp-lovat.vercel.app/#organization",
+      "name": "BSH Technologies",
+      "alternateName": ["BSH Technologies MSP", "BSH Tech", "BSH Managed Services"],
+      "url": "https://bshmsp-lovat.vercel.app",
+      "logo": "https://bshmsp-lovat.vercel.app/images/bsh-technologies-logo.png",
+      "description": "India's most affordable Managed Service Provider offering expert IT support, cybersecurity, and cloud services for nonprofits, startups, and SMEs across India.",
+      "foundingDate": "2020",
+      "slogan": "Empowering Communities Through Technology",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN",
+        "addressRegion": "India"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+91-XXXXXXXXXX",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Hindi"],
+          "areaServed": "IN"
+        },
+        {
+          "@type": "ContactPoint",
+          "email": "novakopro@gmail.com",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Hindi"]
+        }
+      ],
+      "sameAs": [
+        "https://linkedin.com/company/bsh-technologies"
+      ],
+      "areaServed": {
+        "@type": "Country",
+        "name": "India"
+      },
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Managed IT Services",
+            "description": "Comprehensive IT management and support services for Indian businesses"
+          }
+        },
+        {
+          "@type": "Offer", 
+          "itemOffered": {
+            "@type": "Service",
+            "name": "IT Support Services",
+            "description": "24/7 professional IT support and helpdesk services"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service", 
+            "name": "Cybersecurity Services",
+            "description": "Advanced cybersecurity solutions and threat protection"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Cloud Services",
+            "description": "Cloud migration, management and optimization services"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Network Management", 
+            "description": "Professional network setup, monitoring and maintenance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Disaster Recovery",
+            "description": "Business continuity and disaster recovery planning"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://bshmsp-lovat.vercel.app/#website",
+      "url": "https://bshmsp-lovat.vercel.app",
+      "name": "BSH Technologies - Affordable MSP India",
+      "description": "India's most affordable Managed Service Provider offering expert IT support, cybersecurity, and cloud services",
+      "publisher": {
+        "@id": "https://bshmsp-lovat.vercel.app/#organization"
+      },
+      "inLanguage": "en-IN",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://bshmsp-lovat.vercel.app/?s={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What makes BSH Technologies the most affordable MSP in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BSH Technologies offers competitive pricing specifically designed for nonprofits, startups, and SMEs in India. Our transparent pricing model ensures you get professional IT services at rates that fit your budget, with no hidden costs."
+          }
+        },
+        {
+          "@type": "Question", 
+          "name": "What IT services does BSH Technologies provide?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BSH Technologies provides comprehensive managed IT services including 24/7 IT support, cybersecurity services, cloud services, network management, disaster recovery, and specialized support for nonprofits and startups across India."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does BSH Technologies offer 24/7 support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, BSH Technologies provides 24/7 IT support and monitoring services to ensure your systems are always running smoothly. Our expert technicians are available around the clock to address any IT issues promptly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can BSH Technologies help with cloud migration?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely! BSH Technologies specializes in cloud migration services, helping Indian businesses move to cloud platforms like Microsoft 365, Google Workspace, and AWS. We provide comprehensive cloud management and optimization services."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://bshmsp-lovat.vercel.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Services",
+          "item": "https://bshmsp-lovat.vercel.app/services/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "About",
+          "item": "https://bshmsp-lovat.vercel.app/about.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Contact",
+          "item": "https://bshmsp-lovat.vercel.app/contact.html"
+        }
+      ]
+    }
+  ]
+} 

@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OpenAI-GPTBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Sitemap location
+Sitemap: https://bshmsp-lovat.vercel.app/sitemap.xml
+Sitemap: https://bshmsp-lovat.vercel.app/sitemap-pages.xml
+
+# Crawl delay
+Crawl-delay: 1
+
+# Disallow admin or sensitive areas (none currently)
+# Disallow: /admin/ 
