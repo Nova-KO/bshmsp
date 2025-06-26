@@ -32,7 +32,8 @@
         }
       ],
       "sameAs": [
-        "https://linkedin.com/company/bsh-technologies"
+        "https://linkedin.com/company/bsh-technologies",
+        "https://bshtech.net"
       ],
       "areaServed": {
         "@type": "Country",
