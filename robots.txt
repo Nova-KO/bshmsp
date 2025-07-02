@@ -18,7 +18,7 @@ User-agent: CCBot
 Allow: /
 
 # Sitemap location
-Sitemap: https://bshtechnologies.in/sitemap.xml
+Sitemap: https://bshmsp-lovat.vercel.app/sitemap.xml
 
 # Crawl delay
 Crawl-delay: 1

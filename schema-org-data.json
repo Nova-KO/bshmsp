@@ -3,11 +3,11 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://bshtechnologies.in/#organization",
+      "@id": "https://bshmsp-lovat.vercel.app/#organization",
       "name": "BSH Technologies",
       "alternateName": ["BSH Technologies MSP", "BSH Tech", "BSH Managed Services"],
-      "url": "https://bshtechnologies.in",
-      "logo": "https://bshtechnologies.in/images/bsh-technologies-logo.png",
+      "url": "https://bshmsp-lovat.vercel.app",
+      "logo": "https://bshmsp-lovat.vercel.app/images/bsh-technologies-logo.png",
       "description": "India's most affordable Managed Service Provider offering expert IT support, cybersecurity, and cloud services for nonprofits, startups, and SMEs across India.",
       "foundingDate": "2020",
       "slogan": "Empowering Communities Through Technology",
@@ -92,12 +92,12 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://bshtechnologies.in/#website",
-      "url": "https://bshtechnologies.in",
+      "@id": "https://bshmsp-lovat.vercel.app/#website",
+      "url": "https://bshmsp-lovat.vercel.app",
       "name": "BSH Technologies - Affordable MSP India",
       "description": "India's most affordable Managed Service Provider offering expert IT support, cybersecurity, and cloud services",
               "publisher": {
-          "@id": "https://bshtechnologies.in/#organization"
+          "@id": "https://bshmsp-lovat.vercel.app/#organization"
         },
       "inLanguage": "en-IN",
       "potentialAction": [
@@ -105,7 +105,7 @@
           "@type": "SearchAction",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://bshtechnologies.in/?s={search_term_string}"
+            "urlTemplate": "https://bshmsp-lovat.vercel.app/?s={search_term_string}"
           },
           "query-input": "required name=search_term_string"
         }
@@ -155,25 +155,25 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://bshtechnologies.in/"
+          "item": "https://bshmsp-lovat.vercel.app/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Services",
-          "item": "https://bshtechnologies.in/services/"
+          "item": "https://bshmsp-lovat.vercel.app/services/"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "About",
-          "item": "https://bshtechnologies.in/about.html"
+          "item": "https://bshmsp-lovat.vercel.app/about.html"
         },
         {
           "@type": "ListItem",
           "position": 4,
           "name": "Contact",
-          "item": "https://bshtechnologies.in/contact.html"
+          "item": "https://bshmsp-lovat.vercel.app/contact.html"
         }
       ]
     }
