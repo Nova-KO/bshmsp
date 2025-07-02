@@ -80,41 +80,7 @@
   <priority>0.8</priority>
 </url>
 
-<!-- Use Cases Pages -->
-<url>
-  <loc>https://bshmsp-lovat.vercel.app/use-cases/founders.html</loc>
-  <lastmod>2025-06-25</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://bshmsp-lovat.vercel.app/use-cases/management.html</loc>
-  <lastmod>2025-06-25</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://bshmsp-lovat.vercel.app/use-cases/investors.html</loc>
-  <lastmod>2025-06-25</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://bshmsp-lovat.vercel.app/use-cases/sales.html</loc>
-  <lastmod>2025-06-25</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://bshmsp-lovat.vercel.app/use-cases/recruiting.html</loc>
-  <lastmod>2025-06-25</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
+<!-- Use Cases Pages - Removed as not applicable to BSH Technologies IT support model -->
 
 <!-- Blog Posts -->
 <url>
