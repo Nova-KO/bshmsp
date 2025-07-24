@@ -116,15 +116,8 @@
         <!-- Step 10: Resume Upload -->
         <div class="step">
             <div class="form-group">
-                <label for="resume">Upload Resume (PDF/DOC)</label>
-                <input type="hidden" role="uploadcare-uploader" id="resume" name="resume"
-  data-public-key="demopublickey"
-  data-tabs="file url"
-  data-multiple="false"
-  data-clearable="true"
-  data-max-size="3145728"
-  required
-/>
+                <label for="resume">Resume Link (Google Drive, Dropbox, LinkedIn, etc.)</label>
+                <input type="url" id="resume" name="resume" required placeholder="Paste your resume link here (Google Drive, Dropbox, LinkedIn, etc.)">
             </div>
             <div class="btn-row"><button type="button" class="btn prev">Back</button><button type="submit" class="btn">Submit Application</button></div>
         </div>
