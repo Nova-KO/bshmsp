@@ -22,19 +22,19 @@
             }
         }
         
-        // Hide loader when page is ready
+        // Hide loader immediately when page is ready
         if (document.readyState === 'complete') {
             // Page already loaded, hide immediately
-            setTimeout(hideLoader, 1000); // Show for at least 1 second
+            hideLoader();
         } else {
-            // Wait for page to load
+            // Wait for page to load and hide immediately
             window.addEventListener('load', function() {
-                setTimeout(hideLoader, 1000); // Show for at least 1 second
+                hideLoader();
             });
         }
         
-        // Fallback: hide loader after 3 seconds maximum
-        setTimeout(hideLoader, 3000);
+        // Fallback: hide loader after 5 seconds maximum (in case something goes wrong)
+        setTimeout(hideLoader, 5000);
         
         console.log('Page loader initialized');
     }
