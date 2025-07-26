@@ -190,7 +190,7 @@
         console.log('Loading includes...');
         
         // Initialize page loader immediately
-        initializePageLoader();
+        // initializePageLoader(); // Temporarily disabled
         
         // Load header with callback to initialize both hamburger menu and desktop dropdown
         const headerPlaceholder = document.querySelector('[data-include="header"]');
