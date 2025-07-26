@@ -141,7 +141,7 @@
   }
 }
 
-/* Additional footer fixes */
+/* Footer layout fixes - these will be overridden by inline styles in footer.html */
 .footer-inner {
   overflow: visible !important;
 }
@@ -164,6 +164,7 @@
   object-fit: contain !important;
 }
 
+/* Mobile responsive overrides */
 @media (max-width: 767px) {
   .footer-url {
     text-align: center !important;
