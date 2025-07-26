@@ -151,7 +151,7 @@
         // Load header with callback to initialize both hamburger menu and desktop dropdown
         const headerPlaceholder = document.querySelector('[data-include="header"]');
         if (headerPlaceholder) {
-            loadInclude('[data-include="header"]', 'includes/header.html', function() {
+            loadInclude('[data-include="header"]', '/includes/header.html', function() {
                 // Small delay to ensure DOM elements are ready
                 setTimeout(function() {
                     initializeHamburgerMenu();
@@ -163,7 +163,7 @@
         // Load footer  
         const footerPlaceholder = document.querySelector('[data-include="footer"]');
         if (footerPlaceholder) {
-            loadInclude('[data-include="footer"]', 'includes/footer.html');
+            loadInclude('[data-include="footer"]', '/includes/footer.html');
         }
     });
 })(); 
