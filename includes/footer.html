@@ -2,6 +2,34 @@
     <div class="footer-outer">
         <div class="footer-inner">
             <style>
+                /* Footer entrance animation */
+                @keyframes footerFadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                .footer {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    animation: footerFadeIn 0.6s ease-out forwards;
+                    animation-delay: 0.6s;
+                }
+                
+                /* Accessibility - Respect user preferences */
+                @media (prefers-reduced-motion: reduce) {
+                    .footer {
+                        animation: none !important;
+                        opacity: 1 !important;
+                        transform: none !important;
+                    }
+                }
+
                 /* Override the fixed height from main CSS */
                 .footer-inner {
                   height: auto !important;

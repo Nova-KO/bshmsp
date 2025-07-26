@@ -1,8 +1,117 @@
 <style>
+/* Page Entrance Animations */
+@keyframes navbarFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pageEntranceFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes imageFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Apply animations to elements */
+
+.main-content {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: pageEntranceFade 0.8s ease-out forwards;
+    animation-delay: 0.1s;
+}
+
+.global-headline-div {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: contentFadeIn 0.6s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+.full-screen-card,
+.default-section .global-wrapper {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: contentFadeIn 0.6s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+img {
+    opacity: 0;
+    animation: imageFadeIn 0.6s ease-out forwards;
+    animation-delay: 0.4s;
+}
+
+/* Button hover enhancement */
+.primary-btn,
+.secondary-btn {
+    transition: all 0.3s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Accessibility - Respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .navbar,
+    .main-content,
+    .global-headline-div,
+    .full-screen-card,
+    img {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
 /* Mobile Navigation Styles */
 .navbar {
     position: relative;
     z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: navbarFadeIn 0.6s ease-out forwards;
+    animation-delay: 0s;
 }
 
 .navbar-inner {
