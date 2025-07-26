@@ -33,8 +33,8 @@
             });
         }
         
-        // Fallback: hide loader after 5 seconds maximum (in case something goes wrong)
-        setTimeout(hideLoader, 5000);
+        // Fallback: hide loader after 300ms maximum (in case something goes wrong)
+        setTimeout(hideLoader, 300);
         
         console.log('Page loader initialized');
     }
