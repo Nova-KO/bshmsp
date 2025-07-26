@@ -1,5 +1,44 @@
 // Include external HTML files
 (function() {
+    // Page Loader functionality
+    function initializePageLoader() {
+        const pageLoader = document.getElementById('pageLoader');
+        
+        if (!pageLoader) {
+            console.log('Page loader not found');
+            return;
+        }
+        
+        // Hide loader when page is fully loaded
+        function hideLoader() {
+            if (pageLoader) {
+                pageLoader.classList.add('hidden');
+                // Remove loader from DOM after animation completes
+                setTimeout(() => {
+                    if (pageLoader.parentNode) {
+                        pageLoader.parentNode.removeChild(pageLoader);
+                    }
+                }, 500);
+            }
+        }
+        
+        // Hide loader when page is ready
+        if (document.readyState === 'complete') {
+            // Page already loaded, hide immediately
+            setTimeout(hideLoader, 1000); // Show for at least 1 second
+        } else {
+            // Wait for page to load
+            window.addEventListener('load', function() {
+                setTimeout(hideLoader, 1000); // Show for at least 1 second
+            });
+        }
+        
+        // Fallback: hide loader after 3 seconds maximum
+        setTimeout(hideLoader, 3000);
+        
+        console.log('Page loader initialized');
+    }
+    
     function loadInclude(selector, file, callback) {
         fetch(file)
             .then(response => {
@@ -149,6 +188,9 @@
     // Function to load includes with retry mechanism
     function loadIncludesWithRetry() {
         console.log('Loading includes...');
+        
+        // Initialize page loader immediately
+        initializePageLoader();
         
         // Load header with callback to initialize both hamburger menu and desktop dropdown
         const headerPlaceholder = document.querySelector('[data-include="header"]');
