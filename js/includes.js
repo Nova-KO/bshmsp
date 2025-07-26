@@ -24,12 +24,23 @@
     function initializeHamburgerMenu() {
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        const mobileNavClose = document.getElementById('mobileNavClose');
         const mobileServicesToggle = document.getElementById('mobileServicesToggle');
         const mobileServicesDropdown = document.getElementById('mobileServicesDropdown');
         
         if (!hamburgerBtn || !mobileNavOverlay) {
             console.log('Hamburger menu elements not found');
             return;
+        }
+        
+        // Function to close mobile navigation
+        function closeMobileNav() {
+            hamburgerBtn.classList.remove('active');
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            if (mobileServicesDropdown) {
+                mobileServicesDropdown.style.display = 'none';
+            }
         }
         
         // Toggle mobile navigation
@@ -45,6 +56,11 @@
             }
         });
         
+        // Close button functionality
+        if (mobileNavClose) {
+            mobileNavClose.addEventListener('click', closeMobileNav);
+        }
+        
         // Toggle services dropdown in mobile
         if (mobileServicesToggle && mobileServicesDropdown) {
             mobileServicesToggle.addEventListener('click', function(e) {
@@ -57,37 +73,20 @@
         // Close mobile nav when clicking on a link
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link:not(#mobileServicesToggle), .mobile-services-link, .mobile-cta-btn');
         mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                hamburgerBtn.classList.remove('active');
-                mobileNavOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-                if (mobileServicesDropdown) {
-                    mobileServicesDropdown.style.display = 'none';
-                }
-            });
+            link.addEventListener('click', closeMobileNav);
         });
         
         // Close mobile nav when clicking overlay
         mobileNavOverlay.addEventListener('click', function(e) {
             if (e.target === mobileNavOverlay) {
-                hamburgerBtn.classList.remove('active');
-                mobileNavOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-                if (mobileServicesDropdown) {
-                    mobileServicesDropdown.style.display = 'none';
-                }
+                closeMobileNav();
             }
         });
         
         // Handle window resize
         window.addEventListener('resize', function() {
             if (window.innerWidth >= 992) {
-                hamburgerBtn.classList.remove('active');
-                mobileNavOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-                if (mobileServicesDropdown) {
-                    mobileServicesDropdown.style.display = 'none';
-                }
+                closeMobileNav();
             }
         });
         

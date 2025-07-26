@@ -133,6 +133,61 @@
 .mobile-nav-overlay.active .mobile-nav-item:nth-child(5) { transition-delay: 0.3s; }
 .mobile-nav-overlay.active .mobile-nav-item:nth-child(6) { transition-delay: 0.35s; }
 
+.mobile-nav-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: rgba(139, 79, 247, 0.15);
+    border: 2px solid rgba(139, 79, 247, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1002;
+    opacity: 0;
+    transform: scale(0.8) rotate(-90deg);
+}
+
+.mobile-nav-overlay.active .mobile-nav-close {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    transition-delay: 0.3s;
+}
+
+.mobile-nav-close:hover {
+    background: rgba(139, 79, 247, 0.25);
+    border-color: rgba(139, 79, 247, 0.5);
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 8px 25px rgba(139, 79, 247, 0.2);
+}
+
+.close-line {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, #8b4ff7 0%, #a855f7 100%);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.close-line-1 {
+    transform: rotate(45deg);
+}
+
+.close-line-2 {
+    transform: rotate(-45deg);
+}
+
+.mobile-nav-close:hover .close-line {
+    background: linear-gradient(90deg, #a855f7 0%, #8b4ff7 100%);
+}
+
 .mobile-nav-link {
     color: #f0f0f0;
     text-decoration: none;
@@ -346,6 +401,10 @@
     
     <!-- Mobile Navigation Overlay -->
     <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">
+            <span class="close-line close-line-1"></span>
+            <span class="close-line close-line-2"></span>
+        </button>
         <div class="mobile-nav-content">
             <div class="mobile-nav-item">
                 <a href="#" class="mobile-nav-link" id="mobileServicesToggle">Services</a>
