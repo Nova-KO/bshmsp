@@ -66,20 +66,8 @@
             }
         });
         
-        // Handle hover functionality for desktop
-        if (window.innerWidth >= 992) {
-            servicesDropdown.addEventListener('mouseenter', function() {
-                isOpen = true;
-                dropdown.style.display = 'flex';
-                dropdownToggle.classList.add('w--open');
-            });
-            
-            servicesDropdown.addEventListener('mouseleave', function() {
-                isOpen = false;
-                dropdown.style.display = 'none';
-                dropdownToggle.classList.remove('w--open');
-            });
-        }
+        // Hover functionality removed - dropdown only works on click
+        // This ensures the dropdown only opens/closes when the Services link is clicked
         
         console.log('Desktop dropdown initialized successfully');
     }

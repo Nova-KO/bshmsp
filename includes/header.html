@@ -20,10 +20,13 @@
 .nav-item.is-dropdown-d .nav-link {
     cursor: pointer;
     transition: all 0.3s ease;
+    /* Prevent any hover-based dropdown activation */
+    pointer-events: auto;
 }
 
+/* Disable hover effect for dropdown trigger - only click should work */
 .nav-item.is-dropdown-d .nav-link:hover {
-    color: #8b4ff7;
+    color: inherit;
 }
 
 .nav-item.is-dropdown-d .nav-link.w--open {
@@ -39,13 +42,17 @@
 }
 
 .dropdown {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    background-color: #f0f0f0cc;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     border: 1px solid rgba(139, 79, 247, 0.1);
     border-radius: 16px;
+    overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    padding: 1rem 0.5rem;
+    padding: 2.5rem 1.25rem;
     min-width: 220px;
     opacity: 0;
     visibility: hidden;
@@ -55,10 +62,20 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 0.25rem;
+    gap: -0.25rem;
 }
 
+/* Ensure dropdown is hidden by default and only shows on explicit JavaScript control */
+.dropdown {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+}
+
+/* Show dropdown when JavaScript sets display: flex */
 .dropdown[style*="display: flex"] {
+    display: flex;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -70,8 +87,9 @@
     justify-content: center;
     height: 48px;
     min-height: 48px;
-    font-size: 1.15rem;
-    font-weight: 600;
+    font-family: Inter Tight, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
     color: #222;
     text-decoration: none;
     border-radius: 8px;
@@ -82,9 +100,10 @@
     box-sizing: border-box;
 }
 
+/* Disable hover effects for dropdown items - only click should work */
 .dropdown .nav-link.in-drop-down:hover {
-    background: linear-gradient(135deg, rgba(139, 79, 247, 0.08) 0%, rgba(168, 85, 247, 0.04) 100%);
-    color: #8b4ff7;
+    background: none;
+    color: #222;
     transform: none;
 }
 
@@ -464,5 +483,82 @@
         </div>
     </div>
 </div>
+
+<script>
+// Desktop dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const servicesLink = document.querySelector('.nav-item.is-dropdown-d .nav-link');
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownIcon = document.querySelector('.nav-link-icon');
+    
+    // Toggle dropdown on click
+    servicesLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const isOpen = dropdown.style.display === 'flex';
+        
+        if (isOpen) {
+            // Close dropdown
+            dropdown.style.display = 'none';
+            dropdown.style.opacity = '0';
+            dropdown.style.visibility = 'hidden';
+            servicesLink.classList.remove('w--open');
+        } else {
+            // Open dropdown
+            dropdown.style.display = 'flex';
+            dropdown.style.opacity = '1';
+            dropdown.style.visibility = 'visible';
+            servicesLink.classList.add('w--open');
+        }
+    });
+    
+    // Remove the "click outside to close" functionality
+    // The dropdown will only close when clicking the Services link again or selecting an option
+    
+    // Close dropdown when clicking on a dropdown item
+    dropdown.addEventListener('click', function(e) {
+        if (e.target.classList.contains('in-drop-down')) {
+            dropdown.style.display = 'none';
+            servicesLink.classList.remove('w--open');
+        }
+    });
+});
+
+// Mobile dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileServicesToggle = document.getElementById('mobileServicesToggle');
+    const mobileServicesDropdown = document.getElementById('mobileServicesDropdown');
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+    
+    // Toggle mobile services dropdown
+    mobileServicesToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        const isVisible = mobileServicesDropdown.style.display === 'block';
+        mobileServicesDropdown.style.display = isVisible ? 'none' : 'block';
+    });
+    
+    // Toggle mobile navigation
+    hamburgerBtn.addEventListener('click', function() {
+        const isOpen = mobileNavOverlay.classList.contains('is-open');
+        if (isOpen) {
+            mobileNavOverlay.classList.remove('is-open');
+            hamburgerBtn.classList.remove('is-open');
+        } else {
+            mobileNavOverlay.classList.add('is-open');
+            hamburgerBtn.classList.add('is-open');
+        }
+    });
+    
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!hamburgerBtn.contains(e.target) && !mobileNavOverlay.contains(e.target)) {
+            mobileNavOverlay.classList.remove('is-open');
+            hamburgerBtn.classList.remove('is-open');
+        }
+    });
+});
+</script>
 
  
