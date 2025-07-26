@@ -20,6 +20,70 @@
             });
     }
 
+    // Initialize desktop dropdown functionality
+    function initializeDesktopDropdown() {
+        const servicesDropdown = document.querySelector('.nav-item.is-dropdown-d');
+        const dropdownToggle = servicesDropdown?.querySelector('.nav-link');
+        const dropdown = servicesDropdown?.querySelector('.dropdown');
+        
+        if (!servicesDropdown || !dropdownToggle || !dropdown) {
+            console.log('Desktop dropdown elements not found');
+            return;
+        }
+        
+        let isOpen = false;
+        
+        // Toggle dropdown on click
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            isOpen = !isOpen;
+            
+            if (isOpen) {
+                dropdown.style.display = 'flex';
+                dropdownToggle.classList.add('w--open');
+            } else {
+                dropdown.style.display = 'none';
+                dropdownToggle.classList.remove('w--open');
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!servicesDropdown.contains(e.target)) {
+                isOpen = false;
+                dropdown.style.display = 'none';
+                dropdownToggle.classList.remove('w--open');
+            }
+        });
+        
+        // Close dropdown on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isOpen) {
+                isOpen = false;
+                dropdown.style.display = 'none';
+                dropdownToggle.classList.remove('w--open');
+            }
+        });
+        
+        // Handle hover functionality for desktop
+        if (window.innerWidth >= 992) {
+            servicesDropdown.addEventListener('mouseenter', function() {
+                isOpen = true;
+                dropdown.style.display = 'flex';
+                dropdownToggle.classList.add('w--open');
+            });
+            
+            servicesDropdown.addEventListener('mouseleave', function() {
+                isOpen = false;
+                dropdown.style.display = 'none';
+                dropdownToggle.classList.remove('w--open');
+            });
+        }
+        
+        console.log('Desktop dropdown initialized successfully');
+    }
+
     // Initialize hamburger menu functionality
     function initializeHamburgerMenu() {
         const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -96,12 +160,15 @@
 
     // Wait for DOM to be ready
     document.addEventListener('DOMContentLoaded', function() {
-        // Load header with callback to initialize hamburger menu
+        // Load header with callback to initialize both hamburger menu and desktop dropdown
         const headerPlaceholder = document.querySelector('[data-include="header"]');
         if (headerPlaceholder) {
             loadInclude('[data-include="header"]', 'includes/header.html', function() {
                 // Small delay to ensure DOM elements are ready
-                setTimeout(initializeHamburgerMenu, 100);
+                setTimeout(function() {
+                    initializeHamburgerMenu();
+                    initializeDesktopDropdown();
+                }, 100);
             });
         }
 

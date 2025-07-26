@@ -12,6 +12,82 @@
     padding: 1rem;
 }
 
+/* Desktop Dropdown Styles */
+.nav-item.is-dropdown-d {
+    position: relative;
+}
+
+.nav-item.is-dropdown-d .nav-link {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-item.is-dropdown-d .nav-link:hover {
+    color: #8b4ff7;
+}
+
+.nav-item.is-dropdown-d .nav-link.w--open {
+    color: #8b4ff7;
+}
+
+.nav-item.is-dropdown-d .nav-link-icon {
+    transition: transform 0.3s ease;
+}
+
+.nav-item.is-dropdown-d .nav-link.w--open .nav-link-icon {
+    transform: rotate(180deg);
+}
+
+.dropdown {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 79, 247, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0.5rem;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+}
+
+.dropdown[style*="display: flex"] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown .nav-link.in-drop-down {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    min-height: 48px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #222;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    background: none;
+    margin: 0;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.dropdown .nav-link.in-drop-down:hover {
+    background: linear-gradient(135deg, rgba(139, 79, 247, 0.08) 0%, rgba(168, 85, 247, 0.04) 100%);
+    color: #8b4ff7;
+    transform: none;
+}
+
 .hamburger-btn {
     display: none;
     flex-direction: column;

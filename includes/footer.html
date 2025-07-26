@@ -2,6 +2,15 @@
     <div class="footer-outer">
         <div class="footer-inner">
             <style>
+                /* Override the fixed height from main CSS */
+                .footer-inner {
+                  height: auto !important;
+                  min-height: auto !important;
+                  padding: 2rem !important;
+                  justify-content: center !important;
+                  align-items: center !important;
+                }
+
                 .footer-row-1 {
                   display: grid !important;
                   grid-template-columns: 1fr 1fr 1fr 1fr !important;
@@ -9,6 +18,7 @@
                   max-width: 1200px !important;
                   margin: 0 auto !important;
                   width: 100% !important;
+                  align-items: start !important;
                 }
 
                 .footer-column {
@@ -17,6 +27,8 @@
                   gap: 1rem !important;
                   min-width: 0 !important;
                   width: 100% !important;
+                  justify-content: flex-start !important;
+                  align-items: flex-start !important;
                 }
 
                 .footer-headline {
@@ -53,7 +65,8 @@
                 }
 
                 .footer-img {
-                  max-width: 160px !important;
+                  max-width: 400px !important;
+                  width: 100% !important;
                   height: auto !important;
                   object-fit: contain !important;
                   background: none !important;
@@ -66,6 +79,8 @@
                   align-items: center !important;
                   gap: 0.5rem !important;
                   margin-bottom: 1rem !important;
+                  width: 100% !important;
+                  height: 100% !important;
                 }
 
                 .logo-text {
@@ -74,6 +89,19 @@
                   font-size: 18px !important;
                   font-weight: 500 !important;
                   white-space: nowrap !important;
+                }
+
+                /* Ensure footer row 2 is properly spaced */
+                .footer-row-2 {
+                  margin-top: 2rem !important;
+                  width: 100% !important;
+                }
+
+                .footer-row-2-inner {
+                  justify-content: space-between !important;
+                  align-items: center !important;
+                  display: flex !important;
+                  width: 100% !important;
                 }
 
                 @media (max-width: 991px) {
@@ -121,6 +149,12 @@
                   .logo-container {
                     justify-content: center !important;
                   }
+
+                  .footer-row-2-inner {
+                    flex-direction: column !important;
+                    gap: 1rem !important;
+                    text-align: center !important;
+                  }
                 }
 
                 @media (max-width: 479px) {
@@ -141,7 +175,8 @@
                   }
                   
                   .footer-img {
-                    max-width: 140px !important;
+                    max-width: 300px !important;
+                    width: 100% !important;
                   }
                 }
             </style>
@@ -149,7 +184,6 @@
                 <div class="footer-column">
                     <div class="logo-container">
                         <img loading="lazy" src="images/bsh-technologies-logo.png" alt="BSH Technologies Logo" class="footer-img"/>
-                        <div class="logo-text">BSH Technologies</div>
                     </div>
                 </div>
                 <div class="footer-column">
