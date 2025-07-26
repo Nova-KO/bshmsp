@@ -23,6 +23,194 @@
                 font-size: 15px;
             }
         }
+        
+        /* Position Cards Grid Layout */
+        .positions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Position Card Styles */
+        .position-card {
+            background: #fff;
+            border: 1px solid rgba(139, 79, 247, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .position-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+        
+        /* Position Card Header */
+        .position-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .position-card-header:hover {
+            background: linear-gradient(135deg, #f0f2ff 0%, #e8ebff 100%);
+        }
+        
+        .position-card-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+        
+        .position-card-title h3 {
+            margin: 0;
+            color: #222;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .position-badge {
+            background: linear-gradient(135deg, #8b4ff7 0%, #a855f7 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Toggle Icon */
+        .position-card-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(139, 79, 247, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .position-card-header:hover .position-card-toggle {
+            background: rgba(139, 79, 247, 0.2);
+        }
+        
+        .toggle-icon {
+            transition: transform 0.3s ease;
+            color: #8b4ff7;
+        }
+        
+        .position-card.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Position Card Content */
+        .position-card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 1.5rem;
+        }
+        
+        .position-card.expanded .position-card-content {
+            max-height: 1000px;
+            padding: 1.5rem;
+        }
+        
+        /* Position Details */
+        .position-details {
+            margin: 1.5rem 0;
+            display: grid;
+            gap: 0.75rem;
+        }
+        
+        .detail-item {
+            padding: 0.75rem;
+            background: rgba(139, 79, 247, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid #8b4ff7;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .detail-item strong {
+            color: #8b4ff7;
+            font-weight: 600;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .positions-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .positions-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .position-card-header {
+                padding: 1.25rem;
+            }
+            
+            .position-card-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .position-card-title h3 {
+                font-size: 1.1rem;
+            }
+            
+            .position-card-content {
+                padding: 0 1.25rem;
+            }
+            
+            .position-card.expanded .position-card-content {
+                padding: 1.25rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .position-card-header {
+                padding: 1rem;
+            }
+            
+            .position-card-title h3 {
+                font-size: 1rem;
+            }
+            
+            .position-badge {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+            }
+            
+            .position-card-content {
+                padding: 0 1rem;
+            }
+            
+            .position-card.expanded .position-card-content {
+                padding: 1rem;
+            }
+            
+            .detail-item {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 <body class="global-body">
@@ -59,48 +247,94 @@
             <div class="global-headline-div">
                 <h2 class="global-headline-m">Open Positions</h2>
                 <div class="global-subline tm-1-5">
-                    <p class="copytext is-center-aligned">We’re always looking for talented individuals to join our growing team. Explore our current openings below.</p>
+                    <p class="copytext is-center-aligned">We're always looking for talented individuals to join our growing team. Explore our current openings below.</p>
                 </div>
             </div>
-            <div class="max-width-70" style="margin-top: 3rem;">
-                <div class="bento-item" style="margin-bottom: 2rem;">
-                    <h3 class="global-headline-xs">Internship: Python Backend Developer</h3>
-                    <p class="copytext">Are you a third-year student passionate about backend development? Join us as a Python Backend Developer intern and work on real-world APIs, automation, and scalable backend systems with mentorship from experienced engineers.</p>
-                    <ul class="list">
-                        <li>Role: Python Backend Developer</li>
-                        <li>Eligibility: Third-year students (B.Tech/B.E./MCA/BCA or similar)</li>
-                        <li>Skills: Python, Django/Flask, REST APIs, SQL, Git</li>
-                        <li>Location: Remote (India)</li>
-                        <li>Duration: 2-6 months</li>
-                    </ul>
-                    <div class="global-btn-div tm-2">
-                        <a href="/internship-application.html" class="primary-btn is-black w-inline-block">
-                            <div class="btn-txt-container">
-                                <div class="btn-txt is-white">Apply Now</div>
-                                <div class="btn-txt is-white">Apply Now</div>
+            <div class="positions-grid" style="margin-top: 3rem;">
+                <div class="position-card">
+                    <div class="position-card-header" onclick="togglePosition(this)">
+                        <div class="position-card-title">
+                            <h3 class="global-headline-xs">Internship: Python Backend Developer</h3>
+                            <div class="position-badge">Remote</div>
+                        </div>
+                        <div class="position-card-toggle">
+                            <svg class="toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="position-card-content">
+                        <p class="copytext">Are you a third-year student passionate about backend development? Join us as a Python Backend Developer intern and work on real-world APIs, automation, and scalable backend systems with mentorship from experienced engineers.</p>
+                        <div class="position-details">
+                            <div class="detail-item">
+                                <strong>Role:</strong> Python Backend Developer
                             </div>
-                        </a>
+                            <div class="detail-item">
+                                <strong>Eligibility:</strong> Third-year students (B.Tech/B.E./MCA/BCA or similar)
+                            </div>
+                            <div class="detail-item">
+                                <strong>Skills:</strong> Python, Django/Flask, REST APIs, SQL, Git
+                            </div>
+                            <div class="detail-item">
+                                <strong>Location:</strong> Remote (India)
+                            </div>
+                            <div class="detail-item">
+                                <strong>Duration:</strong> 2-6 months
+                            </div>
+                        </div>
+                        <div class="global-btn-div tm-2">
+                            <a href="/internship-application.html" class="primary-btn is-black w-inline-block">
+                                <div class="btn-txt-container">
+                                    <div class="btn-txt is-white">Apply Now</div>
+                                    <div class="btn-txt is-white">Apply Now</div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="bento-item" style="margin-bottom: 2rem;">
-                    <h3 class="global-headline-xs">Internship: Full Stack Developer</h3>
-                    <p class="copytext">Are you a third-year student who loves both backend and frontend? As a Full Stack Developer intern, you’ll build end-to-end features, work with modern frameworks, and contribute to impactful projects for nonprofits and social good.</p>
-                    <ul class="list">
-                        <li>Role: Full Stack Developer</li>
-                        <li>Eligibility: Third-year students (B.Tech/B.E./MCA/BCA or similar)</li>
-                        <li>Skills: Python, Django/Flask, React/JS, REST APIs, SQL, Git</li>
-                        <li>Location: Remote (India)</li>
-                        <li>Duration: 2-6 months</li>
-                    </ul>
-                    <div class="global-btn-div tm-2">
-                        <a href="/internship-application.html" class="primary-btn is-black w-inline-block">
-                            <div class="btn-txt-container">
-                                <div class="btn-txt is-white">Apply Now</div>
-                                <div class="btn-txt is-white">Apply Now</div>
+                
+                <div class="position-card">
+                    <div class="position-card-header" onclick="togglePosition(this)">
+                        <div class="position-card-title">
+                            <h3 class="global-headline-xs">Internship: Full Stack Developer</h3>
+                            <div class="position-badge">Remote</div>
+                        </div>
+                        <div class="position-card-toggle">
+                            <svg class="toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="position-card-content">
+                        <p class="copytext">Are you a third-year student who loves both backend and frontend? As a Full Stack Developer intern, you'll build end-to-end features, work with modern frameworks, and contribute to impactful projects for nonprofits and social good.</p>
+                        <div class="position-details">
+                            <div class="detail-item">
+                                <strong>Role:</strong> Full Stack Developer
                             </div>
-                        </a>
+                            <div class="detail-item">
+                                <strong>Eligibility:</strong> Third-year students (B.Tech/B.E./MCA/BCA or similar)
+                            </div>
+                            <div class="detail-item">
+                                <strong>Skills:</strong> Python, Django/Flask, React/JS, REST APIs, SQL, Git
+                            </div>
+                            <div class="detail-item">
+                                <strong>Location:</strong> Remote (India)
+                            </div>
+                            <div class="detail-item">
+                                <strong>Duration:</strong> 2-6 months
+                            </div>
+                        </div>
+                        <div class="global-btn-div tm-2">
+                            <a href="/internship-application.html" class="primary-btn is-black w-inline-block">
+                                <div class="btn-txt-container">
+                                    <div class="btn-txt is-white">Apply Now</div>
+                                    <div class="btn-txt is-white">Apply Now</div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                
                 <!-- Add more positions here as needed -->
             </div>
         </div>
@@ -156,5 +390,47 @@
 <script src="js/webflow.schunk.57d5559d2f0cd9f8.js" type="text/javascript"></script>
 <script src="js/webflow.schunk.b925c4c580b79a44.js" type="text/javascript"></script>
 <script src="js/webflow-script-1.js" type="text/javascript"></script>
+
+<script>
+// Expandable Position Cards Functionality
+function togglePosition(header) {
+    const card = header.closest('.position-card');
+    const isExpanded = card.classList.contains('expanded');
+    
+    // Close all other cards
+    document.querySelectorAll('.position-card').forEach(otherCard => {
+        if (otherCard !== card) {
+            otherCard.classList.remove('expanded');
+        }
+    });
+    
+    // Toggle current card
+    if (isExpanded) {
+        card.classList.remove('expanded');
+    } else {
+        card.classList.add('expanded');
+    }
+}
+
+// Initialize cards on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Add smooth scroll for anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                e.preventDefault();
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
 </body>
 </html> 
