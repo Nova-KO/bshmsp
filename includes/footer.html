@@ -12,10 +12,31 @@
                   align-items: start !important;
                 }
 
+                .footer-column {
+                  min-width: 0 !important;
+                  overflow: visible !important;
+                }
+
+                .footer-url {
+                  word-break: break-word !important;
+                  overflow-wrap: break-word !important;
+                  white-space: normal !important;
+                }
+
+                .footer-img {
+                  max-width: 100% !important;
+                  height: auto !important;
+                  object-fit: contain !important;
+                }
+
                 @media (max-width: 991px) {
                   .footer-row-1 {
                     grid-template-columns: 1fr 1fr !important;
                     gap: 2rem !important;
+                  }
+                  
+                  .footer-column {
+                    min-width: 0 !important;
                   }
                 }
 
@@ -28,6 +49,11 @@
                   
                   .footer-column {
                     justify-self: center !important;
+                    min-width: 0 !important;
+                  }
+                  
+                  .footer-url {
+                    text-align: center !important;
                   }
                 }
 
@@ -35,12 +61,16 @@
                   .footer-row-1 {
                     gap: 1rem !important;
                   }
+                  
+                  .footer-column {
+                    min-width: 0 !important;
+                  }
                 }
             </style>
             <div class="footer-row-1">
                 <div id="w-node-_078a2637-5fa3-770a-a87c-2bffbd8f6de1-bd8f6ddd" class="footer-column" style="flex: 0 0 auto;">
                     <div class="align-horizontally g-05">
-                        <img loading="lazy" src="images/bsh-technologies-logo.png" alt="" class="footer-img" style="background: none !important; background-color: transparent !important; width: 160px; height: auto; opacity: 1;"/>
+                        <img loading="lazy" src="images/bsh-technologies-logo.png" alt="BSH Technologies Logo" class="footer-img" style="background: none !important; background-color: transparent !important; width: 160px; height: auto; opacity: 1; max-width: 100%;"/>
                     </div>
                 </div>
                 <div id="w-node-_078a2637-5fa3-770a-a87c-2bffbd8f6de6-bd8f6ddd" class="footer-column" style="flex: 0 0 auto;">
