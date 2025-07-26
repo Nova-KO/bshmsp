@@ -146,24 +146,57 @@
         console.log('Hamburger menu initialized successfully');
     }
 
-    // Wait for DOM to be ready
-    document.addEventListener('DOMContentLoaded', function() {
+    // Function to load includes with retry mechanism
+    function loadIncludesWithRetry() {
+        console.log('Loading includes...');
+        
         // Load header with callback to initialize both hamburger menu and desktop dropdown
         const headerPlaceholder = document.querySelector('[data-include="header"]');
         if (headerPlaceholder) {
+            console.log('Header placeholder found, loading header...');
             loadInclude('[data-include="header"]', '/includes/header.html', function() {
+                console.log('Header loaded successfully');
                 // Small delay to ensure DOM elements are ready
                 setTimeout(function() {
                     initializeHamburgerMenu();
                     initializeDesktopDropdown();
                 }, 100);
             });
+        } else {
+            console.log('Header placeholder not found');
         }
 
         // Load footer  
         const footerPlaceholder = document.querySelector('[data-include="footer"]');
         if (footerPlaceholder) {
+            console.log('Footer placeholder found, loading footer...');
             loadInclude('[data-include="footer"]', '/includes/footer.html');
+        } else {
+            console.log('Footer placeholder not found');
+        }
+    }
+
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', loadIncludesWithRetry);
+    
+    // Fallback: try loading after a short delay if DOM is already ready
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        setTimeout(loadIncludesWithRetry, 50);
+    }
+    
+    // Additional fallback: try loading after window load
+    window.addEventListener('load', function() {
+        // Check if includes have already loaded
+        const headerPlaceholder = document.querySelector('[data-include="header"]');
+        const footerPlaceholder = document.querySelector('[data-include="footer"]');
+        
+        if (headerPlaceholder && headerPlaceholder.innerHTML.trim() === '') {
+            console.log('Header still empty after window load, retrying...');
+            loadIncludesWithRetry();
+        }
+        if (footerPlaceholder && footerPlaceholder.innerHTML.trim() === '') {
+            console.log('Footer still empty after window load, retrying...');
+            loadIncludesWithRetry();
         }
     });
 })(); 
