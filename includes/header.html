@@ -216,85 +216,74 @@ img {
     transform: none;
 }
 
-/* Webflow Navigation Button Styles */
-.w-nav-button {
+/* Hamburger Menu Button Styles */
+.hamburger-menu-btn {
     display: none;
+    flex-direction: column;
     cursor: pointer;
-    padding: 18px;
-    font-size: 24px;
-    position: relative;
+    padding: 12px;
     background: rgba(139, 79, 247, 0.1);
     border: 1.5px solid rgba(139, 79, 247, 0.3);
     border-radius: 12px;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    z-index: 1001;
+    position: relative;
 }
 
-.w-nav-button:hover {
+.hamburger-menu-btn:hover {
     background: rgba(139, 79, 247, 0.2);
     border-color: rgba(139, 79, 247, 0.5);
     transform: scale(1.05);
 }
 
-.w-nav-button.w--open {
+.hamburger-menu-btn.active {
     background: rgba(139, 79, 247, 0.15);
     border-color: rgba(139, 79, 247, 0.6);
-    color: #8b4ff7;
 }
 
-.w-icon-nav-menu {
-    width: 24px;
-    height: 24px;
-    position: relative;
-}
-
-.w-icon-nav-menu::before,
-.w-icon-nav-menu::after {
-    content: '';
-    position: absolute;
-    left: 0;
+.hamburger-line {
     width: 24px;
     height: 3px;
     background: linear-gradient(90deg, #8b4ff7 0%, #a855f7 100%);
-    border-radius: 3px;
+    margin: 3px 0;
     transition: all 0.3s ease;
+    border-radius: 3px;
+    transform-origin: center;
 }
 
-.w-icon-nav-menu::before {
-    top: 6px;
-}
-
-.w-icon-nav-menu::after {
-    bottom: 6px;
-}
-
-.w-nav-button.w--open .w-icon-nav-menu::before {
+.hamburger-menu-btn.active .hamburger-line:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
 
-.w-nav-button.w--open .w-icon-nav-menu::after {
+.hamburger-menu-btn.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.hamburger-menu-btn.active .hamburger-line:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* Webflow Mobile Navigation Overlay */
-.w-nav-overlay {
-    width: 100%;
-    display: none;
-    position: absolute;
-    top: 100%;
+/* Mobile Navigation Overlay */
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
     left: 0;
-    right: 0;
-    overflow: hidden;
+    width: 100%;
+    height: 100vh;
     background: linear-gradient(135deg, rgba(24, 24, 40, 0.97) 0%, rgba(30, 30, 50, 0.95) 100%);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
+    display: none;
     z-index: 999;
-    border-radius: 0 0 16px 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: all 0.4s ease;
+    transform: scale(0.95);
 }
 
-.w-nav-overlay::before {
+.mobile-nav-overlay::before {
     content: '';
     position: absolute;
     top: 0;
@@ -303,35 +292,41 @@ img {
     bottom: 0;
     background: linear-gradient(45deg, rgba(139, 79, 247, 0.05) 0%, rgba(168, 85, 247, 0.03) 100%);
     pointer-events: none;
-    border-radius: 0 0 16px 16px;
 }
 
-.w-nav-overlay[data-nav-menu-open] {
-    display: block !important;
+.mobile-nav-overlay.active {
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
 }
 
-.nav-menu-mobile {
+.mobile-nav-content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
     padding: 2rem;
     text-align: center;
     position: relative;
     z-index: 1;
 }
 
-.nav-item-mobile {
+.mobile-nav-item {
     margin: 1rem 0;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
     transition: all 0.4s ease;
     animation: slideInUp 0.4s ease forwards;
 }
 
-.nav-item-mobile:nth-child(1) { animation-delay: 0.1s; }
-.nav-item-mobile:nth-child(2) { animation-delay: 0.15s; }
-.nav-item-mobile:nth-child(3) { animation-delay: 0.2s; }
-.nav-item-mobile:nth-child(4) { animation-delay: 0.25s; }
-.nav-item-mobile:nth-child(5) { animation-delay: 0.3s; }
+.mobile-nav-item:nth-child(1) { animation-delay: 0.1s; }
+.mobile-nav-item:nth-child(2) { animation-delay: 0.15s; }
+.mobile-nav-item:nth-child(3) { animation-delay: 0.2s; }
+.mobile-nav-item:nth-child(4) { animation-delay: 0.25s; }
+.mobile-nav-item:nth-child(5) { animation-delay: 0.3s; }
+.mobile-nav-item:nth-child(6) { animation-delay: 0.35s; }
 
 @keyframes slideInUp {
     to {
@@ -438,15 +433,15 @@ img {
         display: none !important;
     }
     
-    .w-nav-button {
-        display: block;
+    .hamburger-menu-btn {
+        display: flex;
     }
 }
 
 /* Show desktop nav on larger screens */
 @media (min-width: 992px) {
-    .w-nav-button,
-    .w-nav-overlay {
+    .hamburger-menu-btn,
+    .mobile-nav-overlay {
         display: none !important;
     }
     
@@ -504,37 +499,47 @@ img {
                 </nav>
                 
                 <!-- Mobile Hamburger Button -->
-                <div class="w-nav-button" id="hamburgerBtn" aria-label="Toggle navigation">
-                    <div class="w-icon-nav-menu"></div>
-                </div>
+                <button class="hamburger-menu-btn" id="hamburgerBtn" aria-label="Toggle navigation">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
             </div>
         </div>
     </div>
     
     <!-- Mobile Navigation Overlay -->
-    <div class="w-nav-overlay" data-wf-ignore="" id="mobileNavOverlay">
-        <nav class="w-nav-menu" data-nav-menu-open="" role="navigation">
-            <div class="nav-menu-mobile">
-                <div class="nav-item-mobile">
-                    <a href="#" class="w-nav-link mobile-nav-link" id="mobileServicesToggle">Services</a>
-                    <div class="mobile-services-dropdown" id="mobileServicesDropdown" style="display: none;">
-                        <a href="/services/it-support" class="w-nav-link mobile-services-link">IT Support</a>
-                        <a href="/services/cybersecurity" class="w-nav-link mobile-services-link">Cybersecurity</a>
-                        <a href="/services/cloud-services" class="w-nav-link mobile-services-link">Cloud Services</a>
-                        <a href="/services/network-management" class="w-nav-link mobile-services-link">Network Management</a>
-                        <a href="/services/disaster-recovery" class="w-nav-link mobile-services-link">Disaster Recovery</a>
-                    </div>
-                </div>
-                <a href="/about" class="w-nav-link mobile-nav-link">About</a>
-                <a href="/wall-of-love" class="w-nav-link mobile-nav-link">Wall of Love</a>
-                <a href="/blog" class="w-nav-link mobile-nav-link">Blog</a>
-                <a href="/career.html" class="w-nav-link mobile-nav-link">Careers</a>
-                <div class="mobile-cta-buttons">
-                    <a href="/contact" class="primary-btn mobile-cta-btn secondary">Contact Us</a>
-                    <a href="/pricing" class="primary-btn mobile-cta-btn">Get Quote</a>
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-content">
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link" id="mobileServicesToggle">Services</a>
+                <div class="mobile-services-dropdown" id="mobileServicesDropdown" style="display: none;">
+                    <a href="/services/it-support" class="mobile-services-link">IT Support</a>
+                    <a href="/services/cybersecurity" class="mobile-services-link">Cybersecurity</a>
+                    <a href="/services/cloud-services" class="mobile-services-link">Cloud Services</a>
+                    <a href="/services/network-management" class="mobile-services-link">Network Management</a>
+                    <a href="/services/disaster-recovery" class="mobile-services-link">Disaster Recovery</a>
                 </div>
             </div>
-        </nav>
+            <div class="mobile-nav-item">
+                <a href="/about" class="mobile-nav-link">About</a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="/wall-of-love" class="mobile-nav-link">Wall of Love</a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="/blog" class="mobile-nav-link">Blog</a>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="/career.html" class="mobile-nav-link">Careers</a>
+            </div>
+            <div class="mobile-nav-item">
+                <div class="mobile-cta-buttons">
+                    <a href="/contact" class="mobile-cta-btn secondary">Contact Us</a>
+                    <a href="/pricing" class="mobile-cta-btn">Get Quote</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -593,23 +598,26 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileServicesDropdown.style.display = isVisible ? 'none' : 'block';
     });
     
-    // Toggle mobile navigation using Webflow classes
+    // Toggle mobile navigation
     hamburgerBtn.addEventListener('click', function() {
-        const isOpen = hamburgerBtn.classList.contains('w--open');
+        const isOpen = hamburgerBtn.classList.contains('active');
         if (isOpen) {
-            hamburgerBtn.classList.remove('w--open');
-            mobileNavOverlay.removeAttribute('data-nav-menu-open');
+            hamburgerBtn.classList.remove('active');
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = '';
         } else {
-            hamburgerBtn.classList.add('w--open');
-            mobileNavOverlay.setAttribute('data-nav-menu-open', '');
+            hamburgerBtn.classList.add('active');
+            mobileNavOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
     });
     
     // Close mobile nav when clicking outside
     document.addEventListener('click', function(e) {
         if (!hamburgerBtn.contains(e.target) && !mobileNavOverlay.contains(e.target)) {
-            hamburgerBtn.classList.remove('w--open');
-            mobileNavOverlay.removeAttribute('data-nav-menu-open');
+            hamburgerBtn.classList.remove('active');
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = '';
         }
     });
     
@@ -617,12 +625,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link:not(#mobileServicesToggle), .mobile-services-link, .mobile-cta-btn');
     mobileNavLinks.forEach(link => {
         link.addEventListener('click', function() {
-            hamburgerBtn.classList.remove('w--open');
-            mobileNavOverlay.removeAttribute('data-nav-menu-open');
+            hamburgerBtn.classList.remove('active');
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = '';
             if (mobileServicesDropdown) {
                 mobileServicesDropdown.style.display = 'none';
             }
         });
+    });
+    
+    // Close mobile nav when pressing Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && hamburgerBtn.classList.contains('active')) {
+            hamburgerBtn.classList.remove('active');
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     });
 });
 </script>
