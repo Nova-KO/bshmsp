@@ -397,6 +397,35 @@ img {
         display: block !important;
     }
 }
+
+/* Active Navigation States */
+.nav-link.active,
+.mobile-nav-link.active {
+    color: #8b4ff7 !important;
+    font-weight: 600 !important;
+    background: rgba(139, 79, 247, 0.1) !important;
+    border-radius: 8px !important;
+}
+
+.nav-link.active:hover,
+.mobile-nav-link.active:hover {
+    color: #8b4ff7 !important;
+    background: rgba(139, 79, 247, 0.15) !important;
+}
+
+/* Active state for dropdown trigger */
+.nav-item.is-dropdown-d .nav-link.active {
+    color: #8b4ff7 !important;
+    background: rgba(139, 79, 247, 0.1) !important;
+}
+
+/* Active state for services dropdown items */
+.dropdown .nav-link.in-drop-down.active,
+.mobile-services-link.active {
+    color: #8b4ff7 !important;
+    background: rgba(139, 79, 247, 0.1) !important;
+    font-weight: 600 !important;
+}
 </style>
 
 <div class="navbar">
@@ -584,6 +613,78 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Escape' && hamburgerBtn.classList.contains('active')) {
             hamburgerBtn.classList.remove('active');
             mobileNavOverlay.classList.remove('active');
+        }
+    });
+});
+
+// Active page detection and highlighting
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPath = window.location.pathname;
+    
+    // Function to check if a link matches the current page
+    function isCurrentPage(linkHref) {
+        if (!linkHref) return false;
+        
+        // Remove leading slash for comparison
+        const cleanHref = linkHref.replace(/^\//, '');
+        const cleanPath = currentPath.replace(/^\//, '');
+        
+        // Exact match
+        if (cleanHref === cleanPath) return true;
+        
+        // Handle index.html and root path
+        if ((cleanHref === '' || cleanHref === 'index.html') && (cleanPath === '' || cleanPath === 'index.html')) return true;
+        
+        // Handle services pages
+        if (cleanHref.startsWith('services/') && cleanPath.startsWith('services/')) return true;
+        
+        // Handle blog pages
+        if (cleanHref === 'blog' && cleanPath === 'blog.html') return true;
+        
+        // Handle about page
+        if (cleanHref === 'about' && cleanPath === 'about.html') return true;
+        
+        // Handle wall-of-love page
+        if (cleanHref === 'wall-of-love' && cleanPath === 'wall-of-love.html') return true;
+        
+        // Handle career page
+        if (cleanHref === 'career.html' && cleanPath === 'career.html') return true;
+        
+        // Handle contact page
+        if (cleanHref === 'contact' && cleanPath === 'contact.html') return true;
+        
+        // Handle pricing page
+        if (cleanHref === 'pricing' && cleanPath === 'pricing.html') return true;
+        
+        return false;
+    }
+    
+    // Highlight desktop navigation links
+    const desktopNavLinks = document.querySelectorAll('.nav-link:not(.in-drop-down)');
+    desktopNavLinks.forEach(link => {
+        if (isCurrentPage(link.getAttribute('href'))) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Highlight mobile navigation links
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link:not(#mobileServicesToggle)');
+    mobileNavLinks.forEach(link => {
+        if (isCurrentPage(link.getAttribute('href'))) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Highlight services dropdown items
+    const servicesDropdownLinks = document.querySelectorAll('.dropdown .nav-link.in-drop-down, .mobile-services-link');
+    servicesDropdownLinks.forEach(link => {
+        if (isCurrentPage(link.getAttribute('href'))) {
+            link.classList.add('active');
+            // Also highlight the services dropdown trigger if a service page is active
+            const servicesTrigger = document.querySelector('.nav-item.is-dropdown-d .nav-link');
+            const mobileServicesTrigger = document.getElementById('mobileServicesToggle');
+            if (servicesTrigger) servicesTrigger.classList.add('active');
+            if (mobileServicesTrigger) mobileServicesTrigger.classList.add('active');
         }
     });
 });
