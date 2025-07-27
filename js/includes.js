@@ -176,12 +176,33 @@
         }
     }
 
+    // Load error handling scripts
+    function loadErrorHandlingScripts() {
+        // Load Cookiebot fix
+        const cookiebotScript = document.createElement('script');
+        cookiebotScript.src = '/js/cookiebot-fix.js';
+        cookiebotScript.async = true;
+        document.head.appendChild(cookiebotScript);
+        
+        // Load tracking error handler
+        const trackingScript = document.createElement('script');
+        trackingScript.src = '/js/tracking-error-handler.js';
+        trackingScript.async = true;
+        document.head.appendChild(trackingScript);
+    }
+    
     // Wait for DOM to be ready
-    document.addEventListener('DOMContentLoaded', loadIncludesWithRetry);
+    document.addEventListener('DOMContentLoaded', function() {
+        loadIncludesWithRetry();
+        loadErrorHandlingScripts();
+    });
     
     // Fallback: try loading after a short delay if DOM is already ready
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        setTimeout(loadIncludesWithRetry, 50);
+        setTimeout(function() {
+            loadIncludesWithRetry();
+            loadErrorHandlingScripts();
+        }, 50);
     }
     
     // Additional fallback: try loading after window load
