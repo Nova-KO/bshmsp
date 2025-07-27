@@ -428,28 +428,28 @@ img {
 }
 </style>
 
-<div class="navbar">
-    <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="webflow-native-navbar w-nav">
+<header class="navbar" role="banner">
+    <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" class="webflow-native-navbar w-nav">
         <div class="navbar-outer">
             <div class="navbar-inner">
-                <a href="/" class="navbar-logo-div w-nav-brand">
-                    <img loading="eager" src="/images/bsh-technologies-logo.png" alt="Logo" class="logo" style="background: none !important; background-color: transparent !important; width: 180px; height: auto; opacity: 1;"/>
+                <a href="/" class="navbar-logo-div w-nav-brand" aria-label="BSH Technologies Home">
+                    <img loading="eager" src="/images/bsh-technologies-logo.png" alt="BSH Technologies Logo" class="logo" style="background: none !important; background-color: transparent !important; width: 180px; height: auto; opacity: 1;"/>
                 </a>
                 
                 <!-- Desktop Navigation -->
-                <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+                <nav role="navigation" class="nav-menu-wrapper w-nav-menu" aria-label="Main navigation">
                     <ul role="list" class="nav-menu-right w-list-unstyled">
                         <li class="nav-item is-dropdown-d">
-                            <a fs-mirrorclick-element="target-2" data-w-id="8fc10255-6915-78ed-974b-bd0896396c53" href="#" class="nav-link w-inline-block">
+                            <button fs-mirrorclick-element="target-2" data-w-id="8fc10255-6915-78ed-974b-bd0896396c53" class="nav-link w-inline-block" aria-expanded="false" aria-haspopup="true" aria-label="Services menu">
                                 <div class="copytext is-15px">Services</div>
-                                <img src="/images/chevron.png" loading="lazy" alt="" class="nav-link-icon"/>
-                            </a>
-                            <div class="dropdown">
-                                <a href="/services/it-support" class="nav-link in-drop-down">IT Support</a>
-                                <a href="/services/cybersecurity" class="nav-link in-drop-down">Cybersecurity</a>
-                                <a href="/services/cloud-services" class="nav-link in-drop-down">Cloud Services</a>
-                                <a href="/services/network-management" class="nav-link in-drop-down">Network Management</a>
-                                <a href="/services/disaster-recovery" class="nav-link in-drop-down">Disaster Recovery</a>
+                                <img src="/images/chevron.png" loading="lazy" alt="Expand services menu" class="nav-link-icon"/>
+                            </button>
+                            <div class="dropdown" role="menu" aria-label="Services submenu">
+                                <a href="/services/it-support" class="nav-link in-drop-down" role="menuitem">IT Support</a>
+                                <a href="/services/cybersecurity" class="nav-link in-drop-down" role="menuitem">Cybersecurity</a>
+                                <a href="/services/cloud-services" class="nav-link in-drop-down" role="menuitem">Cloud Services</a>
+                                <a href="/services/network-management" class="nav-link in-drop-down" role="menuitem">Network Management</a>
+                                <a href="/services/disaster-recovery" class="nav-link in-drop-down" role="menuitem">Disaster Recovery</a>
                             </div>
                         </li>
                         <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
@@ -457,7 +457,7 @@ img {
                         <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
                         <li class="nav-item"><a href="/career.html" class="nav-link">Careers</a></li>
                         <li class="nav-item is-btn is-demo">
-                            <a data-w-id="eab5c6bd-e7dd-cea2-1d70-3b69fbe17135" href="/contact" class="primary-btn w-inline-block">
+                            <a data-w-id="eab5c6bd-e7dd-cea2-1d70-3b69fbe17135" href="/contact" class="primary-btn w-inline-block" aria-label="Contact us">
                                 <div class="btn-txt-container">
                                     <div class="btn-txt">Contact Us</div>
                                     <div class="btn-txt">Contact Us</div>
@@ -466,7 +466,7 @@ img {
                         </li>
 
                         <li class="nav-item is-btn">
-                            <a id="nav-cta" data-w-id="eab5c6bd-e7dd-cea2-1d70-3b69fbe1713c" href="/pricing" class="primary-btn with-img-bg w-inline-block">
+                            <a id="nav-cta" data-w-id="eab5c6bd-e7dd-cea2-1d70-3b69fbe1713c" href="/pricing" class="primary-btn with-img-bg w-inline-block" aria-label="Get a quote">
                                 <div class="btn-txt-container">
                                     <div id="nav-cta-label" class="btn-txt is-white">Get Quote</div>
                                     <div class="btn-txt is-white">Get Quote</div>
@@ -477,26 +477,26 @@ img {
                 </nav>
                 
                 <!-- Mobile Hamburger Button -->
-                <button class="hamburger-menu-btn" id="hamburgerBtn" aria-label="Toggle navigation">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
+                <button class="hamburger-menu-btn" id="hamburgerBtn" aria-label="Toggle mobile navigation menu" aria-expanded="false" aria-controls="mobileNavOverlay">
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
                 </button>
             </div>
         </div>
     </div>
     
     <!-- Mobile Navigation Overlay -->
-    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" role="dialog" aria-label="Mobile navigation menu" aria-hidden="true">
         <div class="mobile-nav-content">
             <div class="mobile-nav-item">
-                <a href="#" class="mobile-nav-link" id="mobileServicesToggle">Services</a>
-                <div class="mobile-services-dropdown" id="mobileServicesDropdown" style="display: none;">
-                    <a href="/services/it-support" class="mobile-services-link">IT Support</a>
-                    <a href="/services/cybersecurity" class="mobile-services-link">Cybersecurity</a>
-                    <a href="/services/cloud-services" class="mobile-services-link">Cloud Services</a>
-                    <a href="/services/network-management" class="mobile-services-link">Network Management</a>
-                    <a href="/services/disaster-recovery" class="mobile-services-link">Disaster Recovery</a>
+                <button class="mobile-nav-link" id="mobileServicesToggle" aria-expanded="false" aria-controls="mobileServicesDropdown">Services</button>
+                <div class="mobile-services-dropdown" id="mobileServicesDropdown" style="display: none;" role="menu" aria-label="Mobile services submenu">
+                    <a href="/services/it-support" class="mobile-services-link" role="menuitem">IT Support</a>
+                    <a href="/services/cybersecurity" class="mobile-services-link" role="menuitem">Cybersecurity</a>
+                    <a href="/services/cloud-services" class="mobile-services-link" role="menuitem">Cloud Services</a>
+                    <a href="/services/network-management" class="mobile-services-link" role="menuitem">Network Management</a>
+                    <a href="/services/disaster-recovery" class="mobile-services-link" role="menuitem">Disaster Recovery</a>
                 </div>
             </div>
             <div class="mobile-nav-item">
@@ -513,23 +513,23 @@ img {
             </div>
             <div class="mobile-nav-item">
                 <div class="mobile-cta-buttons">
-                    <a href="/contact" class="mobile-cta-btn secondary">Contact Us</a>
-                    <a href="/pricing" class="mobile-cta-btn">Get Quote</a>
+                    <a href="/contact" class="mobile-cta-btn secondary" aria-label="Contact us">Contact Us</a>
+                    <a href="/pricing" class="mobile-cta-btn" aria-label="Get a quote">Get Quote</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</header>
 
 <script>
 // Desktop dropdown functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const servicesLink = document.querySelector('.nav-item.is-dropdown-d .nav-link');
+    const servicesButton = document.querySelector('.nav-item.is-dropdown-d .nav-link');
     const dropdown = document.querySelector('.dropdown');
     const dropdownIcon = document.querySelector('.nav-link-icon');
     
     // Toggle dropdown on click
-    servicesLink.addEventListener('click', function(e) {
+    servicesButton.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         
@@ -540,24 +540,33 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdown.style.display = 'none';
             dropdown.style.opacity = '0';
             dropdown.style.visibility = 'hidden';
-            servicesLink.classList.remove('w--open');
+            servicesButton.classList.remove('w--open');
+            servicesButton.setAttribute('aria-expanded', 'false');
         } else {
             // Open dropdown
             dropdown.style.display = 'flex';
             dropdown.style.opacity = '1';
             dropdown.style.visibility = 'visible';
-            servicesLink.classList.add('w--open');
+            servicesButton.classList.add('w--open');
+            servicesButton.setAttribute('aria-expanded', 'true');
         }
     });
-    
-    // Remove the "click outside to close" functionality
-    // The dropdown will only close when clicking the Services link again or selecting an option
     
     // Close dropdown when clicking on a dropdown item
     dropdown.addEventListener('click', function(e) {
         if (e.target.classList.contains('in-drop-down')) {
             dropdown.style.display = 'none';
-            servicesLink.classList.remove('w--open');
+            servicesButton.classList.remove('w--open');
+            servicesButton.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Close dropdown on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && dropdown.style.display === 'flex') {
+            dropdown.style.display = 'none';
+            servicesButton.classList.remove('w--open');
+            servicesButton.setAttribute('aria-expanded', 'false');
         }
     });
 });
@@ -574,6 +583,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const isVisible = mobileServicesDropdown.style.display === 'block';
         mobileServicesDropdown.style.display = isVisible ? 'none' : 'block';
+        mobileServicesToggle.setAttribute('aria-expanded', !isVisible);
     });
     
     // Toggle mobile navigation
@@ -582,9 +592,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isOpen) {
             hamburgerBtn.classList.remove('active');
             mobileNavOverlay.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+            mobileNavOverlay.setAttribute('aria-hidden', 'true');
         } else {
             hamburgerBtn.classList.add('active');
             mobileNavOverlay.classList.add('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'true');
+            mobileNavOverlay.setAttribute('aria-hidden', 'false');
         }
     });
     
@@ -593,6 +607,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!hamburgerBtn.contains(e.target) && !mobileNavOverlay.contains(e.target)) {
             hamburgerBtn.classList.remove('active');
             mobileNavOverlay.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+            mobileNavOverlay.setAttribute('aria-hidden', 'true');
         }
     });
     
