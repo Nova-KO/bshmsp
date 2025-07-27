@@ -92,8 +92,8 @@ export const jobOpportunity = defineType({
       title: 'Application URL',
       type: 'url',
       initialValue: '/internship-application.html',
-      validation: (rule) => rule.required(),
-      description: 'URL where users can apply'
+      validation: (rule) => rule.optional(),
+      description: 'Application URL (automated - uses internship application form)'
     }),
     defineField({
       name: 'isActive',

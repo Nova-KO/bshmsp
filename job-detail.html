@@ -452,9 +452,9 @@
             
             badgesContainer.innerHTML = badges.join('');
 
-            // Update apply button
+            // Update apply button - always use internship application form
             const applyButton = document.getElementById('applyButton');
-            applyButton.href = job.applicationUrl || '/internship-application.html';
+            applyButton.href = '/internship-application.html';
 
             // Show content
             document.getElementById('loading').style.display = 'none';
