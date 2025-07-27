@@ -82,6 +82,29 @@ const jobAPI = {
       return 'Remote'
     }
     return location || 'Remote'
+  },
+
+  // Get job by slug
+  async getJobBySlug(slug) {
+    const query = `
+      *[_type == "jobOpportunity" && slug.current == $slug && isActive == true][0] {
+        _id,
+        title,
+        "slug": slug.current,
+        description,
+        requirements,
+        eligibility,
+        skills,
+        location,
+        duration,
+        jobType,
+        applicationUrl,
+        featured,
+        publishedAt
+      }
+    `
+    const job = await sanityClient.fetch(query, { slug })
+    return job ? jobAPI.formatJob(job) : null
   }
 }
 
@@ -171,10 +194,10 @@ function createJobCard(job) {
           </div>
         </div>
         <div class="global-btn-div tm-2">
-          <a href="${job.applicationUrl}" class="primary-btn is-black w-inline-block">
+          <a href="/job/${job.slug}" class="primary-btn is-black w-inline-block">
             <div class="btn-txt-container">
-              <div class="btn-txt is-white">Apply Now</div>
-              <div class="btn-txt is-white">Apply Now</div>
+              <div class="btn-txt is-white">View Details</div>
+              <div class="btn-txt is-white">View Details</div>
             </div>
           </a>
         </div>

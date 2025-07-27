@@ -1,6 +1,12 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/job/:slug",
+      "destination": "/job-detail.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

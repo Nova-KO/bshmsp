@@ -513,6 +513,9 @@
                 <div class="form-group">
                     <label for="applicationUrl">Application URL *</label>
                     <input type="url" id="applicationUrl" name="applicationUrl" required value="/internship-application.html">
+                    <small style="color: #6b7280; margin-top: 0.25rem; display: block;">
+                        Job detail page will be available at: <code>/job/[auto-generated-slug]</code>
+                    </small>
                 </div>
 
                 <div class="form-group">
@@ -538,18 +541,12 @@
     </div>
 
     <script src="/js/admin-auth.js"></script>
+    <script src="/js/sanity-config.js"></script>
     <script>
         // Check authentication
         if (sessionStorage.getItem('adminAuthenticated') !== 'true') {
             window.location.href = '/admin-login.html';
         }
-
-        // Sanity configuration
-        const SANITY_CONFIG = {
-            projectId: 'w38otuoh',
-            dataset: 'production',
-            apiVersion: '2023-10-01'
-        };
 
         let jobs = [];
         let editingJobId = null;
@@ -649,6 +646,7 @@
                     <td>${new Date(job.publishedAt).toLocaleDateString()}</td>
                     <td>
                         <div class="action-buttons">
+                            <a href="/job/${job.slug}" class="btn btn-small" target="_blank" style="background: #3b82f6; color: white; text-decoration: none;">View</a>
                             <button class="btn btn-edit btn-small" onclick="editJob('${job._id}')">Edit</button>
                             <button class="btn btn-toggle btn-small" onclick="toggleJobStatus('${job._id}')">
                                 ${job.isActive ? 'Deactivate' : 'Activate'}
