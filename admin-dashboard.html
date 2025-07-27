@@ -495,6 +495,7 @@
                 </div>
                 <div class="admin-nav">
                     <button onclick="refreshJobs()" class="btn-secondary btn-small">Refresh</button>
+                    <button onclick="changePassword()" class="btn-secondary btn-small">Change Password</button>
                     <button onclick="logout()" class="btn-secondary btn-small">Logout</button>
                 </div>
             </div>
@@ -671,6 +672,43 @@
                 <div style="display: flex; gap: 1rem; justify-content: flex-end;">
                     <button type="button" onclick="closeModal()" class="btn-secondary">Cancel</button>
                     <button type="submit" class="btn-primary">Save Job</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="passwordModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Change Password</h3>
+                <button onclick="closePasswordModal()" class="close-btn">&times;</button>
+            </div>
+            
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="currentPassword" class="form-label">Current Password *</label>
+                    <input type="password" id="currentPassword" name="currentPassword" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword" class="form-label">New Password *</label>
+                    <input type="password" id="newPassword" name="newPassword" class="form-input" minlength="8" required>
+                    <small style="color: #6b7280; margin-top: 0.25rem; display: block;">
+                        Password must be at least 8 characters long
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmNewPassword" class="form-label">Confirm New Password *</label>
+                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-input" minlength="8" required>
+                </div>
+
+                <div id="passwordAlert" class="alert" style="display: none;"></div>
+
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" onclick="closePasswordModal()" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Change Password</button>
                 </div>
             </form>
         </div>
@@ -1039,6 +1077,77 @@
             sessionStorage.removeItem('adminLoginTime');
             window.location.href = '/admin-login.html';
         }
+
+        // Change password functions
+        function changePassword() {
+            document.getElementById('passwordModal').style.display = 'flex';
+            document.getElementById('passwordForm').reset();
+            hidePasswordAlert();
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').style.display = 'none';
+            document.getElementById('passwordForm').reset();
+            hidePasswordAlert();
+        }
+
+        function showPasswordAlert(message, type) {
+            const alert = document.getElementById('passwordAlert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.style.display = 'block';
+        }
+
+        function hidePasswordAlert() {
+            document.getElementById('passwordAlert').style.display = 'none';
+        }
+
+        // Password change form submission
+        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            // Validate current password (this would check against stored password)
+            if (currentPassword !== 'bsh2024') { // In production, this would be a secure check
+                showPasswordAlert('Current password is incorrect.', 'error');
+                return;
+            }
+
+            // Validate new password
+            if (newPassword.length < 8) {
+                showPasswordAlert('New password must be at least 8 characters long.', 'error');
+                return;
+            }
+
+            if (newPassword !== confirmNewPassword) {
+                showPasswordAlert('New passwords do not match.', 'error');
+                return;
+            }
+
+            // Update password (in production, this would be stored securely)
+            // For demo purposes, we'll update the login page credentials
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Update the password in the login page (in production, this would be server-side)
+                localStorage.setItem('adminNewPassword', newPassword);
+                
+                showPasswordAlert('Password changed successfully! You will need to login again.', 'success');
+                
+                // Close modal and redirect to login after a delay
+                setTimeout(() => {
+                    closePasswordModal();
+                    logout();
+                }, 2000);
+                
+            } catch (error) {
+                showPasswordAlert('Failed to change password. Please try again.', 'error');
+            }
+        });
 
         // Add initial array items
         addArrayItem('requirementsContainer', 'requirement');

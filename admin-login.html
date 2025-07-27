@@ -3,262 +3,506 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BSH Technologies - Admin Login</title>
+    <title>Admin Login - BSH Technologies</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="BSH Technologies Admin Login - Secure access to job management dashboard">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/jamie-relaunch.webflow.shared.461e702e6.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* Admin Login Styles - Matching Homepage Design */
+        .login-container {
             min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
         }
 
-        .login-container {
+        .login-card {
             background: white;
             border-radius: 20px;
+            padding: 3rem;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            width: 100%;
+            border: 1px solid #e2e8f0;
             max-width: 400px;
-        }
-
-        .login-header {
-            background: linear-gradient(135deg, #8b4ff7 0%, #a855f7 100%);
-            color: white;
-            padding: 2rem;
+            width: 100%;
             text-align: center;
         }
 
-        .login-header h1 {
+        .login-header {
+            margin-bottom: 2rem;
+        }
+
+        .login-logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8b4ff7 0%, #a855f7 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
             font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .login-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1f2937;
             margin-bottom: 0.5rem;
         }
 
-        .login-header p {
-            opacity: 0.9;
-            font-size: 0.9rem;
+        .login-subtitle {
+            color: #6b7280;
+            font-size: 1rem;
         }
 
         .login-form {
-            padding: 2rem;
+            text-align: left;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        label {
+        .form-label {
             display: block;
-            margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #333;
+            color: #374151;
+            margin-bottom: 0.5rem;
             font-size: 0.9rem;
         }
 
-        input {
+        .form-input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
         }
 
-        input:focus {
+        .form-input:focus {
             outline: none;
             border-color: #8b4ff7;
+            box-shadow: 0 0 0 3px rgba(139, 79, 247, 0.1);
         }
 
-        .btn-login {
+        .btn-primary {
+            width: 100%;
             background: linear-gradient(135deg, #8b4ff7 0%, #a855f7 100%);
             color: white;
-            border: none;
-            padding: 16px 32px;
+            padding: 1rem;
             border-radius: 12px;
-            font-size: 16px;
+            text-decoration: none;
             font-weight: 600;
-            cursor: pointer;
             transition: all 0.3s ease;
-            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 1rem;
         }
 
-        .btn-login:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(139, 79, 247, 0.3);
         }
 
-        .btn-login:disabled {
+        .btn-primary:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
 
-        .status {
+        .btn-secondary {
+            width: 100%;
+            background: white;
+            color: #8b4ff7;
+            border: 2px solid #8b4ff7;
             padding: 1rem;
-            border-radius: 8px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
             margin-bottom: 1rem;
-            display: none;
         }
 
-        .status.error {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fca5a5;
+        .btn-secondary:hover {
+            background: #8b4ff7;
+            color: white;
         }
 
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #8b4ff7;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 0.5rem;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .back-link {
+        .forgot-password {
             text-align: center;
             margin-top: 1rem;
         }
 
-        .back-link a {
+        .forgot-password a {
             color: #8b4ff7;
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
-        .back-link a:hover {
+        .forgot-password a:hover {
             text-decoration: underline;
         }
 
-        .logo {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-            background: rgba(255, 255, 255, 0.2);
+        .back-to-login {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .back-to-login a {
+            color: #8b4ff7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .back-to-login a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 1rem;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .form-toggle {
+            display: none;
+        }
+
+        .form-toggle.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 1rem;
+            }
+            
+            .login-card {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
-<body>
-    <div class="login-container">
-        <div class="login-header">
-            <div class="logo">💼</div>
-            <h1>Admin Access</h1>
-            <p>Sign in to manage job postings</p>
-        </div>
+<body class="global-body">
+    <!-- Header -->
+    <div data-include="header"></div>
 
-        <div class="login-form">
-            <div id="status" class="status"></div>
-            <div id="loading" class="loading">
-                <div class="spinner"></div>
-                <p>Signing in...</p>
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Login Form -->
+            <div id="loginForm" class="form-toggle active">
+                <div class="login-header">
+                    <div class="login-logo">BSH</div>
+                    <h1 class="login-title">Admin Login</h1>
+                    <p class="login-subtitle">Access your job management dashboard</p>
+                </div>
+
+                <div id="loginAlert" class="alert" style="display: none;"></div>
+
+                <form class="login-form" id="adminLoginForm">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" name="username" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-input" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="loginBtn">
+                        <span id="loginBtnText">Sign In</span>
+                    </button>
+                </form>
+
+                <div class="forgot-password">
+                    <a href="#" onclick="showForgotPassword()">Forgot your password?</a>
+                </div>
             </div>
 
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required placeholder="Enter your username">
+            <!-- Forgot Password Form -->
+            <div id="forgotPasswordForm" class="form-toggle">
+                <div class="login-header">
+                    <div class="login-logo">BSH</div>
+                    <h1 class="login-title">Reset Password</h1>
+                    <p class="login-subtitle">Enter your username to reset your password</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                <div id="resetAlert" class="alert" style="display: none;"></div>
+
+                <form class="login-form" id="passwordResetForm">
+                    <div class="form-group">
+                        <label for="resetUsername" class="form-label">Username</label>
+                        <input type="text" id="resetUsername" name="resetUsername" class="form-input" required>
+                    </div>
+
+                    <div class="form-group" id="securityQuestionGroup" style="display: none;">
+                        <label for="securityAnswer" class="form-label">Security Question</label>
+                        <p id="securityQuestion" style="color: #6b7280; font-size: 0.9rem; margin-bottom: 0.5rem;"></p>
+                        <input type="text" id="securityAnswer" name="securityAnswer" class="form-input" placeholder="Your answer">
+                    </div>
+
+                    <div class="form-group" id="newPasswordGroup" style="display: none;">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <input type="password" id="newPassword" name="newPassword" class="form-input" minlength="8">
+                    </div>
+
+                    <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" minlength="8">
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="resetBtn">
+                        <span id="resetBtnText">Send Reset Link</span>
+                    </button>
+                </form>
+
+                <div class="back-to-login">
+                    <a href="#" onclick="showLogin()">← Back to Login</a>
                 </div>
-
-                <button type="submit" class="btn-login" id="loginBtn">Sign In</button>
-            </form>
-
-            <div class="back-link">
-                <a href="/">← Back to Website</a>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
+    <div data-include="footer"></div>
+
+    <!-- Scripts -->
+    <script src="/js/includes.js"></script>
     <script>
-        // Simple admin credentials (in production, use proper authentication)
+        // Admin credentials with security question
         const ADMIN_CREDENTIALS = {
             username: 'admin',
-            password: 'bsh2024'
+            password: 'bsh2024',
+            securityQuestion: 'What is the name of your first pet?',
+            securityAnswer: 'buddy' // This should be hashed in production
         };
 
-        function showStatus(message, type) {
-            const status = document.getElementById('status');
-            status.textContent = message;
-            status.className = `status ${type}`;
-            status.style.display = 'block';
-            setTimeout(() => {
-                status.style.display = 'none';
-            }, 5000);
+        let resetStep = 1; // 1: username, 2: security question, 3: new password
+
+        // Show login form
+        function showLogin() {
+            document.getElementById('loginForm').classList.add('active');
+            document.getElementById('forgotPasswordForm').classList.remove('active');
+            resetStep = 1;
+            resetForm();
         }
 
-        function showLoading(show) {
-            document.getElementById('loading').style.display = show ? 'block' : 'none';
-            document.getElementById('loginBtn').disabled = show;
+        // Show forgot password form
+        function showForgotPassword() {
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('forgotPasswordForm').classList.add('active');
+            resetStep = 1;
+            resetForm();
         }
 
-        // Handle login form submission
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        // Reset form fields
+        function resetForm() {
+            document.getElementById('resetUsername').value = '';
+            document.getElementById('securityAnswer').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            document.getElementById('securityQuestionGroup').style.display = 'none';
+            document.getElementById('newPasswordGroup').style.display = 'none';
+            document.getElementById('confirmPasswordGroup').style.display = 'none';
+            document.getElementById('resetBtnText').textContent = 'Send Reset Link';
+            hideAlert('resetAlert');
+        }
+
+        // Show alert
+        function showAlert(alertId, message, type) {
+            const alert = document.getElementById(alertId);
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.style.display = 'block';
+        }
+
+        // Hide alert
+        function hideAlert(alertId) {
+            document.getElementById(alertId).style.display = 'none';
+        }
+
+        // Login form submission
+        document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            
-            showLoading(true);
-            
-            // Simulate API call delay
+            const loginBtn = document.getElementById('loginBtn');
+            const loginBtnText = document.getElementById('loginBtnText');
+
+            // Show loading
+            loginBtn.disabled = true;
+            loginBtnText.innerHTML = '<span class="loading"></span>Signing in...';
+            hideAlert('loginAlert');
+
+            // Simulate API delay
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
+
             try {
-                // Simple authentication (replace with proper auth in production)
                 if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-                    // Store admin session
+                    // Store authentication
                     sessionStorage.setItem('adminAuthenticated', 'true');
                     sessionStorage.setItem('adminLoginTime', Date.now().toString());
                     
-                    showStatus('✅ Login successful! Redirecting...', 'success');
-                    
-                    // Redirect to admin dashboard
-                    setTimeout(() => {
-                        window.location.href = '/admin-dashboard.html';
-                    }, 1000);
+                    // Redirect to dashboard
+                    window.location.href = '/admin-dashboard.html';
                 } else {
-                    throw new Error('Invalid username or password');
+                    showAlert('loginAlert', 'Invalid username or password. Please try again.', 'error');
                 }
             } catch (error) {
-                showStatus(`❌ ${error.message}`, 'error');
+                showAlert('loginAlert', 'An error occurred. Please try again.', 'error');
             } finally {
-                showLoading(false);
+                // Reset button
+                loginBtn.disabled = false;
+                loginBtnText.textContent = 'Sign In';
             }
         });
 
-        // Check if already logged in
-        if (sessionStorage.getItem('adminAuthenticated') === 'true') {
-            window.location.href = '/admin-dashboard.html';
-        }
+        // Password reset form submission
+        document.getElementById('passwordResetForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const resetBtn = document.getElementById('resetBtn');
+            const resetBtnText = document.getElementById('resetBtnText');
+
+            // Show loading
+            resetBtn.disabled = true;
+            resetBtnText.innerHTML = '<span class="loading"></span>Processing...';
+            hideAlert('resetAlert');
+
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            try {
+                if (resetStep === 1) {
+                    // Step 1: Check username
+                    const username = document.getElementById('resetUsername').value;
+                    
+                    if (username === ADMIN_CREDENTIALS.username) {
+                        // Show security question
+                        document.getElementById('securityQuestion').textContent = ADMIN_CREDENTIALS.securityQuestion;
+                        document.getElementById('securityQuestionGroup').style.display = 'block';
+                        resetStep = 2;
+                        resetBtnText.textContent = 'Verify Answer';
+                        showAlert('resetAlert', 'Please answer the security question.', 'info');
+                    } else {
+                        showAlert('resetAlert', 'Username not found. Please check and try again.', 'error');
+                    }
+                } else if (resetStep === 2) {
+                    // Step 2: Verify security answer
+                    const securityAnswer = document.getElementById('securityAnswer').value.toLowerCase().trim();
+                    
+                    if (securityAnswer === ADMIN_CREDENTIALS.securityAnswer.toLowerCase()) {
+                        // Show new password fields
+                        document.getElementById('newPasswordGroup').style.display = 'block';
+                        document.getElementById('confirmPasswordGroup').style.display = 'block';
+                        resetStep = 3;
+                        resetBtnText.textContent = 'Reset Password';
+                        showAlert('resetAlert', 'Please enter your new password.', 'info');
+                    } else {
+                        showAlert('resetAlert', 'Incorrect answer. Please try again.', 'error');
+                    }
+                } else if (resetStep === 3) {
+                    // Step 3: Set new password
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    
+                    if (newPassword.length < 8) {
+                        showAlert('resetAlert', 'Password must be at least 8 characters long.', 'error');
+                    } else if (newPassword !== confirmPassword) {
+                        showAlert('resetAlert', 'Passwords do not match. Please try again.', 'error');
+                    } else {
+                        // Update password (in production, this would be stored securely)
+                        ADMIN_CREDENTIALS.password = newPassword;
+                        
+                        showAlert('resetAlert', 'Password reset successfully! You can now login with your new password.', 'success');
+                        
+                        // Reset form and go back to login
+                        setTimeout(() => {
+                            showLogin();
+                        }, 2000);
+                    }
+                }
+            } catch (error) {
+                showAlert('resetAlert', 'An error occurred. Please try again.', 'error');
+            } finally {
+                // Reset button
+                resetBtn.disabled = false;
+                if (resetStep === 1) {
+                    resetBtnText.textContent = 'Send Reset Link';
+                } else if (resetStep === 2) {
+                    resetBtnText.textContent = 'Verify Answer';
+                } else if (resetStep === 3) {
+                    resetBtnText.textContent = 'Reset Password';
+                }
+            }
+        });
+
+        // Check if already authenticated
+        document.addEventListener('DOMContentLoaded', function() {
+            const isAuthenticated = sessionStorage.getItem('adminAuthenticated') === 'true';
+            const loginTime = sessionStorage.getItem('adminLoginTime');
+            const sessionExpiry = 8 * 60 * 60 * 1000; // 8 hours
+            const isExpired = loginTime && (Date.now() - parseInt(loginTime)) > sessionExpiry;
+            
+            if (isAuthenticated && !isExpired) {
+                window.location.href = '/admin-dashboard.html';
+            }
+        });
     </script>
 </body>
 </html> 
