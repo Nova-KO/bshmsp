@@ -450,6 +450,101 @@
             margin: 0;
         }
 
+        /* Team Grid Styles */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .team-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-member-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: linear-gradient(135deg, #8b4ff7 0%, #a855f7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .team-member-info h3 {
+            margin: 0 0 0.25rem 0;
+            color: #1f2937;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .team-member-info p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .team-member-bio {
+            color: #374151;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .team-card-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        .team-status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .team-status-badge.active {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+        }
+
+        .team-status-badge.inactive {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .team-status-badge.featured {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
         @media (max-width: 768px) {
             .admin-header-inner {
                 flex-direction: column;
@@ -592,6 +687,39 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Team Management -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">Meet Our Team</h2>
+                    <button onclick="openTeamModal()" class="btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Add Team Member
+                    </button>
+                </div>
+
+                <!-- Team Loading State -->
+                <div id="teamLoading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading team members...</p>
+                </div>
+
+                <!-- Team Empty State -->
+                <div id="teamEmptyState" class="empty-state" style="display: none;">
+                    <h3>No team members found</h3>
+                    <p>Get started by adding your first team member.</p>
+                    <button onclick="openTeamModal()" class="btn-primary">Add First Team Member</button>
+                </div>
+
+                <!-- Team Members Grid -->
+                <div id="teamGrid" style="display: none;">
+                    <div class="team-grid" id="teamGridContent">
+                        <!-- Team members will be loaded here -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -721,6 +849,77 @@
                 <div style="display: flex; gap: 1rem; justify-content: flex-end;">
                     <button type="button" onclick="closePasswordModal()" class="btn-secondary">Cancel</button>
                     <button type="submit" class="btn-primary">Change Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Team Member Modal -->
+    <div id="teamModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="teamModalTitle">Add Team Member</h3>
+                <button onclick="closeTeamModal()" class="close-btn">&times;</button>
+            </div>
+            
+            <form id="teamForm">
+                <div class="form-group">
+                    <label for="memberName" class="form-label">Full Name *</label>
+                    <input type="text" id="memberName" name="memberName" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberPosition" class="form-label">Position/Title *</label>
+                    <input type="text" id="memberPosition" name="memberPosition" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberBio" class="form-label">Bio/Description *</label>
+                    <textarea id="memberBio" name="memberBio" class="form-input" rows="4" required placeholder="Brief description of the team member's role, expertise, and background..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberImage" class="form-label">Profile Image URL</label>
+                    <input type="url" id="memberImage" name="memberImage" class="form-input" placeholder="https://example.com/image.jpg">
+                    <small style="color: #6b7280; margin-top: 0.25rem; display: block;">
+                        Optional: URL to profile image (recommended size: 300x300px)
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberEmail" class="form-label">Email Address</label>
+                    <input type="email" id="memberEmail" name="memberEmail" class="form-input" placeholder="team.member@bshtech.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="memberLinkedIn" class="form-label">LinkedIn Profile</label>
+                    <input type="url" id="memberLinkedIn" name="memberLinkedIn" class="form-input" placeholder="https://linkedin.com/in/username">
+                </div>
+
+                <div class="form-group">
+                    <label for="memberOrder" class="form-label">Display Order</label>
+                    <input type="number" id="memberOrder" name="memberOrder" class="form-input" value="1" min="1">
+                    <small style="color: #6b7280; margin-top: 0.25rem; display: block;">
+                        Order in which team members appear (1 = first, 2 = second, etc.)
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="memberActive" name="memberActive" checked>
+                            <label for="memberActive">Active (Show on website)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="memberFeatured" name="memberFeatured">
+                            <label for="memberFeatured">Featured Member (Highlight on team page)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" onclick="closeTeamModal()" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Team Member</button>
                 </div>
             </form>
         </div>
@@ -1166,6 +1365,192 @@
         addArrayItem('requirementsContainer', 'requirement');
         addArrayItem('skillsContainer', 'skill');
         addArrayItem('skillsContainer', 'skill');
+
+        // Team Management Functions
+        let teamMembers = [];
+        let editingTeamId = null;
+
+        // Initialize team management
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTeamMembers();
+        });
+
+        // Load team members
+        async function loadTeamMembers() {
+            showTeamLoading(true);
+            try {
+                // For now, we'll use localStorage to store team members
+                // In production, this would be a Sanity API call
+                const stored = localStorage.getItem('teamMembers');
+                teamMembers = stored ? JSON.parse(stored) : [];
+                renderTeamGrid();
+            } catch (error) {
+                console.error('Error loading team members:', error);
+                showTeamEmptyState('Failed to load team members');
+            } finally {
+                showTeamLoading(false);
+            }
+        }
+
+        // Render team grid
+        function renderTeamGrid() {
+            const gridContent = document.getElementById('teamGridContent');
+            
+            if (teamMembers.length === 0) {
+                showTeamEmptyState('No team members found');
+                return;
+            }
+
+            // Sort by display order
+            const sortedMembers = [...teamMembers].sort((a, b) => a.order - b.order);
+
+            gridContent.innerHTML = sortedMembers.map(member => `
+                <div class="team-card">
+                    <div class="team-status-badge ${member.active ? 'active' : 'inactive'} ${member.featured ? 'featured' : ''}">
+                        ${member.active ? 'Active' : 'Inactive'}${member.featured ? ' • Featured' : ''}
+                    </div>
+                    <div class="team-card-header">
+                        <div class="team-member-image">
+                            ${member.image ? `<img src="${member.image}" alt="${member.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">` : member.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="team-member-info">
+                            <h3>${member.name}</h3>
+                            <p>${member.position}</p>
+                        </div>
+                    </div>
+                    <div class="team-member-bio">
+                        ${member.bio}
+                    </div>
+                    <div class="team-card-actions">
+                        <button class="btn-edit btn-small" onclick="openTeamModal('${member._id}')">Edit</button>
+                        <button class="btn-toggle btn-small" onclick="toggleTeamStatus('${member._id}')">
+                            ${member.active ? 'Deactivate' : 'Activate'}
+                        </button>
+                        <button class="btn-delete btn-small" onclick="deleteTeamMember('${member._id}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('teamGrid').style.display = 'block';
+            document.getElementById('teamEmptyState').style.display = 'none';
+        }
+
+        // Team modal functions
+        function openTeamModal(memberId = null) {
+            editingTeamId = memberId;
+            const modal = document.getElementById('teamModal');
+            const modalTitle = document.getElementById('teamModalTitle');
+            
+            if (memberId) {
+                modalTitle.textContent = 'Edit Team Member';
+                const member = teamMembers.find(m => m._id === memberId);
+                if (member) {
+                    populateTeamForm(member);
+                }
+            } else {
+                modalTitle.textContent = 'Add Team Member';
+                document.getElementById('teamForm').reset();
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeTeamModal() {
+            document.getElementById('teamModal').style.display = 'none';
+            document.getElementById('teamForm').reset();
+            editingTeamId = null;
+        }
+
+        function populateTeamForm(member) {
+            document.getElementById('memberName').value = member.name;
+            document.getElementById('memberPosition').value = member.position;
+            document.getElementById('memberBio').value = member.bio;
+            document.getElementById('memberImage').value = member.image || '';
+            document.getElementById('memberEmail').value = member.email || '';
+            document.getElementById('memberLinkedIn').value = member.linkedin || '';
+            document.getElementById('memberOrder').value = member.order || 1;
+            document.getElementById('memberActive').checked = member.active;
+            document.getElementById('memberFeatured').checked = member.featured;
+        }
+
+        // Team form submission
+        document.getElementById('teamForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const memberData = {
+                name: formData.get('memberName'),
+                position: formData.get('memberPosition'),
+                bio: formData.get('memberBio'),
+                image: formData.get('memberImage'),
+                email: formData.get('memberEmail'),
+                linkedin: formData.get('memberLinkedIn'),
+                order: parseInt(formData.get('memberOrder')) || 1,
+                active: formData.get('memberActive') === 'on',
+                featured: formData.get('memberFeatured') === 'on'
+            };
+
+            try {
+                if (editingTeamId) {
+                    // Update existing member
+                    const index = teamMembers.findIndex(m => m._id === editingTeamId);
+                    if (index !== -1) {
+                        teamMembers[index] = { ...teamMembers[index], ...memberData };
+                    }
+                } else {
+                    // Add new member
+                    memberData._id = Date.now().toString();
+                    memberData.createdAt = new Date().toISOString();
+                    teamMembers.push(memberData);
+                }
+
+                // Save to localStorage (in production, this would be a Sanity API call)
+                localStorage.setItem('teamMembers', JSON.stringify(teamMembers));
+                
+                closeTeamModal();
+                loadTeamMembers();
+                
+                // Show success message
+                alert(editingTeamId ? 'Team member updated successfully!' : 'Team member added successfully!');
+                
+            } catch (error) {
+                console.error('Error saving team member:', error);
+                alert('Failed to save team member. Please try again.');
+            }
+        });
+
+        // Team utility functions
+        function showTeamLoading(show) {
+            document.getElementById('teamLoading').style.display = show ? 'block' : 'none';
+            if (show) {
+                document.getElementById('teamGrid').style.display = 'none';
+                document.getElementById('teamEmptyState').style.display = 'none';
+            }
+        }
+
+        function showTeamEmptyState(message) {
+            document.getElementById('teamEmptyState').style.display = 'block';
+            document.getElementById('teamGrid').style.display = 'none';
+            document.getElementById('teamLoading').style.display = 'none';
+            document.querySelector('#teamEmptyState h3').textContent = message;
+        }
+
+        function toggleTeamStatus(memberId) {
+            const member = teamMembers.find(m => m._id === memberId);
+            if (member) {
+                member.active = !member.active;
+                localStorage.setItem('teamMembers', JSON.stringify(teamMembers));
+                renderTeamGrid();
+            }
+        }
+
+        function deleteTeamMember(memberId) {
+            if (confirm('Are you sure you want to delete this team member?')) {
+                teamMembers = teamMembers.filter(m => m._id !== memberId);
+                localStorage.setItem('teamMembers', JSON.stringify(teamMembers));
+                renderTeamGrid();
+            }
+        }
     </script>
 </body>
 </html> 
