@@ -1375,22 +1375,24 @@
             loadTeamMembers();
         });
 
-        // Load team members
-        async function loadTeamMembers() {
-            showTeamLoading(true);
-            try {
-                // For now, we'll use localStorage to store team members
-                // In production, this would be a Sanity API call
-                const stored = localStorage.getItem('teamMembers');
-                teamMembers = stored ? JSON.parse(stored) : [];
-                renderTeamGrid();
-            } catch (error) {
-                console.error('Error loading team members:', error);
-                showTeamEmptyState('Failed to load team members');
-            } finally {
-                showTeamLoading(false);
-            }
-        }
+                       // Load team members
+               async function loadTeamMembers() {
+                   showTeamLoading(true);
+                   try {
+                       // Use Sanity API to load team members
+                       const response = await fetch('/api/team/members');
+                       if (!response.ok) {
+                           throw new Error('Failed to fetch team members');
+                       }
+                       teamMembers = await response.json();
+                       renderTeamGrid();
+                   } catch (error) {
+                       console.error('Error loading team members:', error);
+                       showTeamEmptyState('Failed to load team members');
+                   } finally {
+                       showTeamLoading(false);
+                   }
+               }
 
         // Render team grid
         function renderTeamGrid() {
@@ -1473,51 +1475,50 @@
             document.getElementById('memberFeatured').checked = member.featured;
         }
 
-        // Team form submission
-        document.getElementById('teamForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const memberData = {
-                name: formData.get('memberName'),
-                position: formData.get('memberPosition'),
-                bio: formData.get('memberBio'),
-                image: formData.get('memberImage'),
-                email: formData.get('memberEmail'),
-                linkedin: formData.get('memberLinkedIn'),
-                order: parseInt(formData.get('memberOrder')) || 1,
-                active: formData.get('memberActive') === 'on',
-                featured: formData.get('memberFeatured') === 'on'
-            };
-
-            try {
-                if (editingTeamId) {
-                    // Update existing member
-                    const index = teamMembers.findIndex(m => m._id === editingTeamId);
-                    if (index !== -1) {
-                        teamMembers[index] = { ...teamMembers[index], ...memberData };
-                    }
-                } else {
-                    // Add new member
-                    memberData._id = Date.now().toString();
-                    memberData.createdAt = new Date().toISOString();
-                    teamMembers.push(memberData);
-                }
-
-                // Save to localStorage (in production, this would be a Sanity API call)
-                localStorage.setItem('teamMembers', JSON.stringify(teamMembers));
-                
-                closeTeamModal();
-                loadTeamMembers();
-                
-                // Show success message
-                alert(editingTeamId ? 'Team member updated successfully!' : 'Team member added successfully!');
-                
-            } catch (error) {
-                console.error('Error saving team member:', error);
-                alert('Failed to save team member. Please try again.');
-            }
-        });
+                       // Team form submission
+               document.getElementById('teamForm').addEventListener('submit', async function(e) {
+                   e.preventDefault();
+                   
+                   const formData = new FormData(e.target);
+                   const memberData = {
+                       name: formData.get('memberName'),
+                       position: formData.get('memberPosition'),
+                       bio: formData.get('memberBio'),
+                       image: formData.get('memberImage'),
+                       email: formData.get('memberEmail'),
+                       linkedin: formData.get('memberLinkedIn'),
+                       order: parseInt(formData.get('memberOrder')) || 1,
+                       active: formData.get('memberActive') === 'on',
+                       featured: formData.get('memberFeatured') === 'on'
+                   };
+       
+                   try {
+                       const url = editingTeamId ? `/api/team/members/${editingTeamId}` : '/api/team/members';
+                       const method = editingTeamId ? 'PUT' : 'POST';
+                       
+                       const response = await fetch(url, {
+                           method: method,
+                           headers: {
+                               'Content-Type': 'application/json'
+                           },
+                           body: JSON.stringify(memberData)
+                       });
+       
+                       if (!response.ok) {
+                           throw new Error('Failed to save team member');
+                       }
+                       
+                       closeTeamModal();
+                       loadTeamMembers();
+                       
+                       // Show success message
+                       alert(editingTeamId ? 'Team member updated successfully!' : 'Team member added successfully!');
+                       
+                   } catch (error) {
+                       console.error('Error saving team member:', error);
+                       alert('Failed to save team member. Please try again.');
+                   }
+               });
 
         // Team utility functions
         function showTeamLoading(show) {
@@ -1535,22 +1536,50 @@
             document.querySelector('#teamEmptyState h3').textContent = message;
         }
 
-        function toggleTeamStatus(memberId) {
-            const member = teamMembers.find(m => m._id === memberId);
-            if (member) {
-                member.active = !member.active;
-                localStorage.setItem('teamMembers', JSON.stringify(teamMembers));
-                renderTeamGrid();
-            }
-        }
+                       async function toggleTeamStatus(memberId) {
+                   try {
+                       const member = teamMembers.find(m => m._id === memberId);
+                       if (member) {
+                           const newStatus = !member.active;
+                           
+                           const response = await fetch(`/api/team/members/${memberId}/toggle`, {
+                               method: 'POST',
+                               headers: {
+                                   'Content-Type': 'application/json'
+                               },
+                               body: JSON.stringify({ active: newStatus })
+                           });
+                           
+                           if (response.ok) {
+                               member.active = newStatus;
+                               renderTeamGrid();
+                           }
+                       }
+                   } catch (error) {
+                       console.error('Error toggling team member status:', error);
+                       alert('Failed to update team member status');
+                   }
+               }
 
-        function deleteTeamMember(memberId) {
-            if (confirm('Are you sure you want to delete this team member?')) {
-                teamMembers = teamMembers.filter(m => m._id !== memberId);
-                localStorage.setItem('teamMembers', JSON.stringify(teamMembers));
-                renderTeamGrid();
-            }
-        }
+                       async function deleteTeamMember(memberId) {
+                   if (confirm('Are you sure you want to delete this team member?')) {
+                       try {
+                           const response = await fetch(`/api/team/members/${memberId}`, {
+                               method: 'DELETE'
+                           });
+                           
+                           if (response.ok) {
+                               teamMembers = teamMembers.filter(m => m._id !== memberId);
+                               renderTeamGrid();
+                           } else {
+                               alert('Failed to delete team member');
+                           }
+                       } catch (error) {
+                           console.error('Error deleting team member:', error);
+                           alert('Failed to delete team member');
+                       }
+                   }
+               }
     </script>
 </body>
 </html> 

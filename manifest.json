@@ -1,0 +1,61 @@
+{
+  "name": "BSH Technologies",
+  "short_name": "BSH Tech",
+  "description": "Professional IT Support, Cybersecurity, Cloud Services, and Network Management for businesses",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8b4ff7",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "productivity", "technology"],
+  "icons": [
+    {
+      "src": "/images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/bsh-technologies-logo.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with our team",
+      "url": "/contact.html",
+      "icons": [
+        {
+          "src": "/images/favicon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Our Services",
+      "short_name": "Services",
+      "description": "View our IT services",
+      "url": "/services/it-support.html",
+      "icons": [
+        {
+          "src": "/images/favicon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+} 
