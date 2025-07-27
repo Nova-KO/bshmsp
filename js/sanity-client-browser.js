@@ -3,7 +3,7 @@
 
 // Sanity client configuration
 const SANITY_CONFIG = {
-  projectId: 'YOUR_PROJECT_ID', // Replace with your actual Sanity project ID
+  projectId: 'w38otuoh', // BSH Technologies Sanity project
   dataset: 'production',
   useCdn: true,
   apiVersion: '2023-10-01'

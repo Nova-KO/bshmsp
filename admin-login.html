@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSH Technologies - Admin Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #8b4ff7 0%, #a855f7 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .login-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .login-form {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #8b4ff7;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #8b4ff7 0%, #a855f7 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 79, 247, 0.3);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #8b4ff7;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .back-link a {
+            color: #8b4ff7;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">💼</div>
+            <h1>Admin Access</h1>
+            <p>Sign in to manage job postings</p>
+        </div>
+
+        <div class="login-form">
+            <div id="status" class="status"></div>
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Signing in...</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter your username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                </div>
+
+                <button type="submit" class="btn-login" id="loginBtn">Sign In</button>
+            </form>
+
+            <div class="back-link">
+                <a href="/">← Back to Website</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple admin credentials (in production, use proper authentication)
+        const ADMIN_CREDENTIALS = {
+            username: 'admin',
+            password: 'bsh2024'
+        };
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 5000);
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+            document.getElementById('loginBtn').disabled = show;
+        }
+
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            showLoading(true);
+            
+            // Simulate API call delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            try {
+                // Simple authentication (replace with proper auth in production)
+                if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                    // Store admin session
+                    sessionStorage.setItem('adminAuthenticated', 'true');
+                    sessionStorage.setItem('adminLoginTime', Date.now().toString());
+                    
+                    showStatus('✅ Login successful! Redirecting...', 'success');
+                    
+                    // Redirect to admin dashboard
+                    setTimeout(() => {
+                        window.location.href = '/admin-dashboard.html';
+                    }, 1000);
+                } else {
+                    throw new Error('Invalid username or password');
+                }
+            } catch (error) {
+                showStatus(`❌ ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // Check if already logged in
+        if (sessionStorage.getItem('adminAuthenticated') === 'true') {
+            window.location.href = '/admin-dashboard.html';
+        }
+    </script>
+</body>
+</html> 
