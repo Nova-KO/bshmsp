@@ -13,16 +13,6 @@
       ],
       "destination": "https://bshtechnologies.in/$1",
       "permanent": true
-    },
-    {
-      "source": "https://www.bshtechnologies.in/(.*)",
-      "destination": "https://bshtechnologies.in/$1",
-      "permanent": true
-    },
-    {
-      "source": "http://www.bshtechnologies.in/(.*)",
-      "destination": "https://bshtechnologies.in/$1",
-      "permanent": true
     }
   ],
   "rewrites": [
