@@ -13,12 +13,46 @@
       ],
       "destination": "https://bshtechnologies.in/$1",
       "permanent": true
+    },
+    {
+      "source": "https://www.bshtechnologies.in/(.*)",
+      "destination": "https://bshtechnologies.in/$1",
+      "permanent": true
+    },
+    {
+      "source": "http://www.bshtechnologies.in/(.*)",
+      "destination": "https://bshtechnologies.in/$1",
+      "permanent": true
     }
   ],
   "rewrites": [
     {
       "source": "/job/:slug",
       "destination": "/job-detail.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/use-cases/management",
+      "destination": "/use-cases/management.html"
+    },
+    {
+      "source": "/use-cases/founders",
+      "destination": "/use-cases/founders.html"
+    },
+    {
+      "source": "/use-cases/sales",
+      "destination": "/use-cases/sales.html"
+    },
+    {
+      "source": "/use-cases/recruiting",
+      "destination": "/use-cases/recruiting.html"
     }
   ],
   "headers": [
